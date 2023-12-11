@@ -307,7 +307,7 @@ double *fa_x, double *fa_y, double *fa_z, double *fb_x, double *fb_y, double *fb
             //printf("88gama_T=%f\n",*gama_T);
             //forces calculations in a seperate kernel:
             Active_calc_forces<<<grid_size,blockSize>>>(fa_kx, fa_ky, fa_kz, fb_kx, fb_ky, fb_kz, Aa_kx, Aa_ky, Aa_kz, Ab_kx, Ab_ky, Ab_kz,
-                    ex, ey, ez, u_scale, mass, mass_fluid, size, N, gamaT);
+                    ex, ey, ez, u_scale, mass, mass_fluid, size, N, gamaT, u_scale);
 
             //printf("hievery");
     
@@ -486,7 +486,7 @@ double *NL,int Nsize , double Nux, int Nmass, double Nreal_time, int Nm , int Nt
         double r[3];
         //This line calculates the nearest image of particle positions in the periodic boundary conditions using the LeeEdwNearestImage function
         //The resulting displacement is stored in the r array.
-        LeeEdwNearestImage(NmdX[ID1], NmdY[ID1], NmdZ[ID1] , NmdX[ID2] , NmdY[ID2] , NmdZ[ID2] , r,NL, N, Nreal_time);
+        LeeEdwNearestImage(NmdX[ID1], NmdY[ID1], NmdZ[ID1] , NmdX[ID2] , NmdY[ID2] , NmdZ[ID2] , r,NL, Nm , Nreal_time);
         double r_sqr = r[0] * r[0] + r[1] * r[1] + r[2] * r[2];//r_sqr calculates the squared distance between the particles.
         double f =0;//initialize the force to zero.
 
