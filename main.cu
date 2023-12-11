@@ -57,7 +57,7 @@ int main(int argc, const char* argv[])
     TIME = atoi(argv[14]);//starting
     topology = atoi(argv[15]);
     Activity = atoi(argv[16]);//I added a parameter called activity which is either 0 or 1 ( either we have activity or we don't)
-    random_flag = atoi(argv[17]);//a flag to see if we have random activity or not 
+    random_flag = atoi(argv[17]);//a flag to see if we have random activity or not
       
     double ux = shear_rate * L[2];
     double u_scale = 1.0;
@@ -70,6 +70,9 @@ int main(int argc, const char* argv[])
     double *temperature;
     temperature = (double*) malloc(sizeof(double));
     *temperature = 1.0;
+    double Pe = 1.0; //peclet number
+    double l_eq = 1.0; // equilibrium length
+    u_scale = Pe * l_eq *DR ; 
     int Nc = L[0]*L[1]*L[2]; //number of cells 
     int N =density* Nc; //number of particles
     int Nmd = n_md * m_md;//total number of monomers
