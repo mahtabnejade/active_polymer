@@ -203,7 +203,8 @@ int main(int argc, const char* argv[])
     //cudaOccupancyMaxPotentialBlockSize(&minGridSize, &blockSize_, reduce_kernel, 0, dataSize);
 
     // Print the recommended block size
-    std::cout << "Recommended Block Size: " << blockSize_ << std::endl;
+    //std::cout << "Recommended Block Size: " << blockSize_ << std::endl;
+    printf ("blocksize=%i", blockSize_);
 
     // Calculate the grid size based on your data size and the block size
     int grid_size_ = (dataSize + blockSize_ - 1) / blockSize_;
