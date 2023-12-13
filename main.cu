@@ -190,6 +190,7 @@ int main(int argc, const char* argv[])
     cudaSetDevice(device);
 
     int blockSize_;  // To store the recommended block size
+    blockSize_ = 256; 
     int minGridSize; // To store the minimum grid size
 
     int dataSize = N; // Adjust this to your problem size
@@ -199,7 +200,7 @@ int main(int argc, const char* argv[])
     cudaMalloc((void**)&d_data, dataSize * sizeof(int));
 
     // Determine the maximum potential block size
-    cudaOccupancyMaxPotentialBlockSize(&minGridSize, &blockSize_, reduce_kernel, 0, dataSize);
+    //cudaOccupancyMaxPotentialBlockSize(&minGridSize, &blockSize_, reduce_kernel, 0, dataSize);
 
     // Print the recommended block size
     std::cout << "Recommended Block Size: " << blockSize_ << std::endl;
