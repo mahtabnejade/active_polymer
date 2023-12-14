@@ -3,7 +3,7 @@ __global__ void sumCommMultiBlock(const double *gArr, int arraySize, double *gOu
     int thIdx = threadIdx.x;
     int gthIdx = thIdx + blockIdx.x*blockSize;
     const int gridSize = blockSize*gridDim.x;
-    double sum = 0;
+    double sum = 0.0;
     for (int i = gthIdx; i < arraySize; i += gridSize)
         sum += gArr[i];
     __shared__ double shArr[blockSize];
