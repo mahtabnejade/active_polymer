@@ -47,7 +47,7 @@ double *L_v,int size_v , double ux_v, int mass_v, double real_time_v, int m_v , 
     }
 }
 // a kernel to put active forces on the polymer in an specific way that can be changes as you wish
-__global__ void SpecificOrientedForce(double *mdX, double *mdY, double *mdZ, double real_time,double u0, int size, double *fa_kx, double *fa_ky, double *fa_kz,double *fb_kx, double *fb_ky, double *fb_kz, double *gama_T, double Q)
+__global__ void SpecificOrientedForce(double *mdX, double *mdY, double *mdZ, double real_time,double u0, int size, double *fa_kx, double *fa_ky, double *fa_kz,double *fb_kx, double *fb_ky, double *fb_kz, double *gama_T, double Q, double u_scale)
 {
  
     int tid = blockIdx.x*blockDim.x+threadIdx.x;//index of the particle in the system
@@ -55,7 +55,7 @@ __global__ void SpecificOrientedForce(double *mdX, double *mdY, double *mdZ, dou
     {
         //printf("gama-T=%f\n", *gama_T);
         fa_kx[tid] = 0.0;
-        fa_ky[tid] = 0.0; //u0*sin(real_time) * *gama_T;
+        fa_ky[tid] = 0.0; //u_scale*sin(real_time) * *gama_T;
         fa_kz[tid] = 0.0;
         fb_kx[tid] = fa_kx[tid] * Q;
         fb_ky[tid] = fa_ky[tid] * Q;
@@ -265,7 +265,7 @@ double *fa_x, double *fa_y, double *fa_z, double *fb_x, double *fb_y, double *fb
         cudaMemcpy(gamaTT, gama_T, sizeof(double) , cudaMemcpyHostToDevice);
 
 
-        SpecificOrientedForce<<<grid_size,blockSize>>>(mdX, mdY, mdZ, real_time, u_scale, size, fa_kx, fa_ky, fa_kz, fb_kx, fb_ky, fb_kz, gamaTT, Q);
+        SpecificOrientedForce<<<grid_size,blockSize>>>(mdX, mdY, mdZ, real_time, u_scale, size, fa_kx, fa_ky, fa_kz, fb_kx, fb_ky, fb_kz, gamaTT, Q, u_scale);
         gpuErrchk( cudaPeekAtLastError() );
         gpuErrchk( cudaDeviceSynchronize() );
 
