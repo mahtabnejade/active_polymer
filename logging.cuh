@@ -73,20 +73,24 @@ __host__ void xyz_trj(std::string file_name,  double *d_mdX, double *d_mdY , dou
 }
 
 //this function is the same as xyz_trj, but in this version the origin (0 , 0 , 0) is ommited and won't be saved.
-__host__ void xyz_trj_mpcd(std::string file_name,  double *d_mdX, double *d_mdY , double *d_mdZ, int Nmd)
+__host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , double *d_Z, int Nmd , int *zerofactor)
 {
     std::ofstream traj (file_name, std::ios_base::app);
-    double *h_mdX, *h_mdY, *h_mdZ;
-    h_mdX = (double*)malloc(sizeof(double) * Nmd);  
-    h_mdY = (double*)malloc(sizeof(double) * Nmd);  
-    h_mdZ = (double*)malloc(sizeof(double) * Nmd);
-    cudaMemcpy(h_mdX, d_mdX, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
-    cudaMemcpy(h_mdY, d_mdY, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
-    cudaMemcpy(h_mdZ, d_mdZ, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
-    traj<<Nmd<<"\n\n";
+
+    int NN = Nmd - *zerofactor;
+    double *h_X, *h_Y, *h_Z;
+    h_X = (double*)malloc(sizeof(double) * Nmd);  
+    h_Y = (double*)malloc(sizeof(double) * Nmd);  
+    h_Z = (double*)malloc(sizeof(double) * Nmd);
+    cudaMemcpy(h_X, d_X, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_Y, d_Y, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_Z, d_Z, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
+    traj<<NN<<"\n\n";
     for (int i =0 ; i< Nmd ; i++)
     {
-        traj<<"C      "<<h_mdX[i]<<"      "<<h_mdY[i]<<"      "<<h_mdZ[i]<<"\n";
+        if (h_X[i]==0.0 && h_Y[i]==0.0 && h_Z[i]==0.0) continue;
+
+        else traj<<"C      "<<h_X[i]<<"      "<<h_Y[i]<<"      "<<h_Z[i]<<"\n";
     }
 
 }
