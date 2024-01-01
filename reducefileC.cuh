@@ -64,7 +64,7 @@ int reducefile_vel() {
     return 0;
 }*/
 
-__global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z){
+__global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr, int *zerofactorr){
 
     int tid = blockIdx.x*blockDim.x + threadIdx.x;
     int tidd = int(tid/skipfactor);
@@ -94,6 +94,7 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
                 d_zz[tidd]=roundedNumber_z[tid];
             }
             else{
+                *zerofactorr = *zerofactorr + 1;
                 d_xx[tid]=0.0;
                 d_yy[tid]=0.0;
                 d_zz[tid]=0.0;
@@ -106,12 +107,16 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
   
 }
 
-__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z){
+__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr){
 
 
     int NN = int(N/skipfactor);
+    int *zero_factor;
+    cudaMalloc((void**)&zero_factor, sizeof(int));
+    cudaMemcpy(zero_factor, zerofactorr, sizeof(int) , cudaMemcpyHostToDevice);
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z);
-    xyz_trj(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN);
+    cudaMemcpy(zerofactorr, zero_factor, sizeof(int) , cudaMemcpyDeviceToHost);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, zerofactorr);
 
 
 }
