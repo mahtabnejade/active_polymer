@@ -109,7 +109,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
 
 
 
-__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz){
+__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz){
 
     int tid = blockIdx.x*blockDim.x + threadIdx.x;
     int tidd = int(tid/skipfactor);
@@ -122,19 +122,21 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
         if (tid%skipfactor == 0)
         {
 
-           
-            roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
-            //roundedNumber_vx[tid]=d_vx[tid];
-           
-            roundedNumber_vy[tid] = roundf(d_vy[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
-            //roundedNumber_vy[tid]=d_vy[tid];
-            
-            roundedNumber_vz[tid]= roundf(d_vz[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
-            //roundedNumber_vz[tid]=d_vz[tid];
+            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5){
 
-            d_vxx[tidd]=roundedNumber_vx[tid];
-            d_vyy[tidd]=roundedNumber_vy[tid];
-            d_vzz[tidd]=roundedNumber_vz[tid];
+                roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
+                //roundedNumber_vx[tid]=d_vx[tid];
+           
+                roundedNumber_vy[tid] = roundf(d_vy[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
+                //roundedNumber_vy[tid]=d_vy[tid];
+            
+                roundedNumber_vz[tid]= roundf(d_vz[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
+                //roundedNumber_vz[tid]=d_vz[tid];
+
+                d_vxx[tidd]=roundedNumber_vx[tid];
+                d_vyy[tidd]=roundedNumber_vy[tid];
+                d_vzz[tidd]=roundedNumber_vz[tid];
+            }
         } 
     }
 
@@ -153,11 +155,11 @@ __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double
 
 }
 
-__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz){
+__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz){
 
 
     int NN = int(N/skipfactor);
-    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz);
+    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz);
     
     xyz_trj(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN);
 
