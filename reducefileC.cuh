@@ -121,6 +121,7 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
 
         if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5)
         {
+            printf("uauauaua");
 
             if (tid%skipfactor == 0){
 
