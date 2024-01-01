@@ -78,7 +78,7 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
         {
 
            
-            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5) {
+            if (d_x[tid] < 5.0 && d_y[tid] < 5.0 && d_z[tid] < 5.0 && d_x[tid] > -5.0 && d_y[tid] > -5.0 && d_z[tid] > -5.0) {
 
                 printf("*&*\n");
 
@@ -91,7 +91,14 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
 
                 d_xx[tidd]=roundedNumber_x[tid];
                 d_yy[tidd]=roundedNumber_y[tid];
-                d_zz[tidd]=roundedNumber_z[tid];
+                d_zz[tidd]=roundedNumber_z[tid];c
+            }
+            else{
+                d_xx[tid]=0.0;
+                d_yy[tid]=0.0;
+                d_zz[tid]=0.0;
+
+
             }
         }
         
@@ -111,7 +118,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
 
 
 
-__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz){
+__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zero_counter){
 
     int tid = blockIdx.x*blockDim.x + threadIdx.x;
     int tidd = int(tid/skipfactor);
@@ -140,6 +147,12 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
                 d_vyy[tidd]=roundedNumber_vy[tid];
                 d_vzz[tidd]=roundedNumber_vz[tid];
             }
+            else{
+                *zero_counter = *zero_counter+1;
+                d_xx[tid]=0.0;
+                d_yy[tid]=0.0;
+                d_zz[tid]=0.0;
+            }
         } 
     }
 
@@ -162,7 +175,10 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
 
 
     int NN = int(N/skipfactor);
-    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz);
+    int *zero_factor;
+    cudaMalloc((void**)&zero_factor, sizeof(int));
+    cudaMemcpy(zero_factor, zerofactor, sizeof(int) , cudaMemcpyHostToDevice);
+    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zero_factor);
     
     xyz_trj(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN);
 
