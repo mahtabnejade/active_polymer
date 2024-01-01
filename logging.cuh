@@ -72,6 +72,25 @@ __host__ void xyz_trj(std::string file_name,  double *d_mdX, double *d_mdY , dou
 
 }
 
+//this function is the same as xyz_trj, but in this version the origin (0 , 0 , 0) is ommited and won't be saved.
+__host__ void xyz_trj_mpcd(std::string file_name,  double *d_mdX, double *d_mdY , double *d_mdZ, int Nmd)
+{
+    std::ofstream traj (file_name, std::ios_base::app);
+    double *h_mdX, *h_mdY, *h_mdZ;
+    h_mdX = (double*)malloc(sizeof(double) * Nmd);  
+    h_mdY = (double*)malloc(sizeof(double) * Nmd);  
+    h_mdZ = (double*)malloc(sizeof(double) * Nmd);
+    cudaMemcpy(h_mdX, d_mdX, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_mdY, d_mdY, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_mdZ, d_mdZ, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
+    traj<<Nmd<<"\n\n";
+    for (int i =0 ; i< Nmd ; i++)
+    {
+        traj<<"C      "<<h_mdX[i]<<"      "<<h_mdY[i]<<"      "<<h_mdZ[i]<<"\n";
+    }
+
+}
+
 void flowprofile(int *d_index,double *d_vx, FILE *file, int N)
     {
         double *vx;
