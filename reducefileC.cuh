@@ -74,11 +74,11 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
     if (tid<N)
     {
 
-        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 && tid%skipfactor == 0)
+        if (tid%skipfactor == 0)
         {
 
            
-            //if (tid%skipfactor == 0){
+            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5) {
 
                 printf("*&*\n");
 
@@ -92,7 +92,7 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
                 d_xx[tidd]=roundedNumber_x[tid];
                 d_yy[tidd]=roundedNumber_y[tid];
                 d_zz[tidd]=roundedNumber_z[tid];
-            //}
+            }
         }
         
     }
@@ -121,11 +121,11 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
     if (tid<N)
     {
 
-        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 && tid%skipfactor == 0)
+        if (tid%skipfactor == 0)
         {
             
 
-            //if (tid%skipfactor == 0){
+            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 ){
 
                 roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
                 //roundedNumber_vx[tid]=d_vx[tid];
@@ -139,7 +139,7 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
                 d_vxx[tidd]=roundedNumber_vx[tid];
                 d_vyy[tidd]=roundedNumber_vy[tid];
                 d_vzz[tidd]=roundedNumber_vz[tid];
-            //}
+            }
         } 
     }
 
