@@ -74,11 +74,11 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
     if (tid<N)
     {
 
-        if (tid%skipfactor == 0)
+        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5)
         {
 
            
-            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5){
+            if (tid%skipfactor == 0){
 
                 roundedNumber_x[tid] = roundf(d_x[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
                 //roundedNumber_x[tid]=d_x[tid];
@@ -119,10 +119,10 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
     if (tid<N)
     {
 
-        if (tid%skipfactor == 0)
+        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5)
         {
 
-            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5){
+            if (tid%skipfactor == 0){
 
                 roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
                 //roundedNumber_vx[tid]=d_vx[tid];
