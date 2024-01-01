@@ -74,7 +74,7 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
     if (tid<N)
     {
 
-        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5)
+        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z > -5)
         {
 
            
@@ -119,9 +119,9 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
     if (tid<N)
     {
 
-        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5)
+        if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z > -5)
         {
-            printf("uauauaua");
+            
 
             if (tid%skipfactor == 0){
 
