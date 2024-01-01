@@ -91,7 +91,7 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
 
                 d_xx[tidd]=roundedNumber_x[tid];
                 d_yy[tidd]=roundedNumber_y[tid];
-                d_zz[tidd]=roundedNumber_z[tid];c
+                d_zz[tidd]=roundedNumber_z[tid];
             }
             else{
                 d_xx[tid]=0.0;
@@ -149,9 +149,9 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
             }
             else{
                 *zero_counter = *zero_counter+1;
-                d_xx[tid]=0.0;
-                d_yy[tid]=0.0;
-                d_zz[tid]=0.0;
+                d_vxx[tid]=0.0;
+                d_vyy[tid]=0.0;
+                d_vzz[tid]=0.0;
             }
         } 
     }
@@ -170,8 +170,8 @@ __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double
     }
 
 }
-
-__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz){
+//only for mpcd to reduce the data
+__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor){
 
 
     int NN = int(N/skipfactor);
@@ -179,8 +179,8 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     cudaMalloc((void**)&zero_factor, sizeof(int));
     cudaMemcpy(zero_factor, zerofactor, sizeof(int) , cudaMemcpyHostToDevice);
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zero_factor);
-    
-    xyz_trj(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN);
+    cudaMemcpy(zerofactor, zero_factor, sizeof(int) , cudaMemcpyDeviceToHost);
+    xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, zerofactor);
 
 }
  
