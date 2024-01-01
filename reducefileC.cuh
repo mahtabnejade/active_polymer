@@ -111,11 +111,11 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
 
 
     int NN = int(N/skipfactor);
-    int *zero_factor;
-    cudaMalloc((void**)&zero_factor, sizeof(int));
-    cudaMemcpy(zero_factor, zerofactorr, sizeof(int) , cudaMemcpyHostToDevice);
-    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
-    cudaMemcpy(zerofactorr, zero_factor, sizeof(int) , cudaMemcpyDeviceToHost);
+    int *zero_factorr;
+    cudaMalloc((void**)&zero_factorr, sizeof(int));
+    cudaMemcpy(zero_factorr, zerofactorr, sizeof(int) , cudaMemcpyHostToDevice);
+    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zero_factorr);
+    cudaMemcpy(zerofactorr, zero_factorr, sizeof(int) , cudaMemcpyDeviceToHost);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, zerofactorr);
 
 
