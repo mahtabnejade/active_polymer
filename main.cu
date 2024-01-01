@@ -67,16 +67,19 @@ int main(int argc, const char* argv[])
     double *gama_T;
     gama_T = (double*) malloc(sizeof(double));
     *gama_T = 0.8;
+    int *zerofactor;
+    zerofactor = (int*) malloc(sizeof(int));
+    *zerofactor = 0;
     double *temperature;
     temperature = (double*) malloc(sizeof(double));
     *temperature = 1.0;
-    double Pe = 1.0; //peclet number
+    double Pe = 10.0; //peclet number
     double l_eq = 1.0; // equilibrium length
     u_scale = Pe * l_eq *DR ; 
     int Nc = L[0]*L[1]*L[2]; //number of cells 
     int N =density* Nc; //number of particles
     int Nmd = n_md * m_md;//total number of monomers
-    int grid_size = ((N + blockSize) / blockSize);
+     = ((N + blockSize) / blockSize);
     int shared_mem_size = 3 * blockSize * sizeof(double); // allocate shared memory for the intermediate reduction results.
     
      //random generator
@@ -428,7 +431,7 @@ int main(int argc, const char* argv[])
             xyz_trj(basename + "_traj.xyz", d_mdX, d_mdY , d_mdZ, Nmd);
             xyz_trj(basename + "_vel.xyz", d_mdVx, d_mdVy , d_mdVz, Nmd);
             reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z);
-            reducevel(basename, d_vx, d_vy, d_vz,  d_vxx, d_vyy, d_vzz, N, skipfactor, grid_size,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz);
+            reducevel(basename, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, grid_size,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
             xyz_veltraj_both(basename, d_xx, d_yy, d_zz,d_vxx, d_vyy, d_vzz, NN, d_endp_x, d_endp_y, d_endp_z, scalefactor, grid_size);
             //xyz_trj(basename + "_mpcdtraj.xyz", d_x, d_y , d_z, N);
             //xyz_trj(basename + "_mpcdvel.xyz", d_vx, d_vy , d_vz, N);
