@@ -79,7 +79,7 @@ int main(int argc, const char* argv[])
     int Nc = L[0]*L[1]*L[2]; //number of cells 
     int N =density* Nc; //number of particles
     int Nmd = n_md * m_md;//total number of monomers
-     = ((N + blockSize) / blockSize);
+     int grid_size = ((N + blockSize) / blockSize);
     int shared_mem_size = 3 * blockSize * sizeof(double); // allocate shared memory for the intermediate reduction results.
     
      //random generator
