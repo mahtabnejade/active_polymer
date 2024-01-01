@@ -78,17 +78,19 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
         {
 
            
-            
-            roundedNumber_x[tid] = roundf(d_x[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
-            //roundedNumber_x[tid]=d_x[tid];
-            roundedNumber_y[tid] = roundf(d_y[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
-            //roundedNumber_y[tid]=d_y[tid];
-            roundedNumber_z[tid]= roundf(d_z[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
-            //roundedNumber_z[tid]=d_z[tid];
+            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5){
 
-            d_xx[tidd]=roundedNumber_x[tid];
-            d_yy[tidd]=roundedNumber_y[tid];
-            d_zz[tidd]=roundedNumber_z[tid];
+                roundedNumber_x[tid] = roundf(d_x[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
+                //roundedNumber_x[tid]=d_x[tid];
+                roundedNumber_y[tid] = roundf(d_y[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
+                //roundedNumber_y[tid]=d_y[tid];
+                roundedNumber_z[tid]= roundf(d_z[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
+                //roundedNumber_z[tid]=d_z[tid];
+
+                d_xx[tidd]=roundedNumber_x[tid];
+                d_yy[tidd]=roundedNumber_y[tid];
+                d_zz[tidd]=roundedNumber_z[tid];
+            }
         }
         
     }
