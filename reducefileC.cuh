@@ -64,7 +64,7 @@ int reducefile_vel() {
     return 0;
 }*/
 
-__global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr, int *zerofactorr){
+__global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr){
 
     int tid = blockIdx.x*blockDim.x + threadIdx.x;
     int tidd = int(tid/skipfactor);
@@ -114,7 +114,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
     int *zero_factor;
     cudaMalloc((void**)&zero_factor, sizeof(int));
     cudaMemcpy(zero_factor, zerofactorr, sizeof(int) , cudaMemcpyHostToDevice);
-    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z);
+    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
     cudaMemcpy(zerofactorr, zero_factor, sizeof(int) , cudaMemcpyDeviceToHost);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, zerofactorr);
 
