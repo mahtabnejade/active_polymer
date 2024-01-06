@@ -73,11 +73,11 @@ __host__ void xyz_trj(std::string file_name,  double *d_mdX, double *d_mdY , dou
 }
 
 //this function is the same as xyz_trj, but in this version the origin (0 , 0 , 0) is ommited and won't be saved.
-__host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , double *d_Z, int Nmd , int *zerofactor)
+__host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , double *d_Z, int Nmd , int zerofactor_sum)
 {
     std::ofstream traj (file_name, std::ios_base::app);
 
-    int NN = Nmd - *zerofactor;
+    int N_nonzero = Nmd - zerofactor_sum;
     double *h_X, *h_Y, *h_Z;
     h_X = (double*)malloc(sizeof(double) * Nmd);  
     h_Y = (double*)malloc(sizeof(double) * Nmd);  
@@ -85,7 +85,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     cudaMemcpy(h_X, d_X, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Y, d_Y, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Z, d_Z, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
-    traj<<NN<<"\n\n";
+    traj<<N_nonzero<<"\n\n";
     for (int i =0 ; i< Nmd ; i++)
     {
         if (h_X[i]==0.0 && h_Y[i]==0.0 && h_Z[i]==0.0) continue;
