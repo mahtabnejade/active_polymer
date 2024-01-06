@@ -115,7 +115,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
     cudaMalloc((void**)&zero_factorr, sizeof(int));
     cudaMemcpy(zero_factorr, zerofactorr, sizeof(int) , cudaMemcpyHostToDevice);
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zero_factorr);
-    printf("zarofactor=%i", zero_factorr);
+    printf("zarofactor=%i", *zero_factorr);
     cudaMemcpy(zerofactorr, zero_factorr, sizeof(int) , cudaMemcpyDeviceToHost);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, zerofactorr);
 
