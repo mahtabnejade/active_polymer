@@ -107,14 +107,27 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
   
 }
 
-__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr, int *zerofactorr_sum){
+__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr, int *zerofactorrsumblock){
 
 
     int NN = int(N/skipfactor);
+    int shared_mem_size_ = 3 * blockSize_ * sizeof(int);
+    int block_sum_zerofactorr[grid_size_];
+
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);\
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
-    int d_zerofactorr_sum;
-    cudaMemcpy(d_zerofactorr_sum, zerofactorr_sum, sizeof(int) , cudaMemcpyDeviceToHost);
+    reduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+    cudaMemcpy(block_sum_zerofactorr, zerofactorrsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    int d_zerofactorr_sum = 0;
+    for (int j = 0; j < grid_size; j++)
+        {
+            d_zerofactorr_sum += block_sum_zerofactorr[j];
+        }
+    
+    
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
 
 
@@ -175,14 +188,25 @@ __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double
 
 }
 //only for mpcd to reduce the data
-__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactor_sum){
+__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactorsumblock){
 
 
     int NN = int(N/skipfactor);
+    int shared_mem_size_ = 3 * blockSize_ * sizeof(int);
+    int block_sum_zerofactor[grid_size_];
+
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
     //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
-    int d_zerofactor_sum;
-    cudaMemcpy(d_zerofactor_sum, zerofactor_sum, sizeof(int) , cudaMemcpyDeviceToHost);
+    reduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
+    cudaMemcpy(block_sum_zerofactor, zerofactorsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    int d_zerofactor_sum = 0;
+    for (int j = 0; j < grid_size; j++)
+        {
+            d_zerofactor_sum += block_sum_zerofactor[j];
+           
+        }
+
+    
     xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
 }
