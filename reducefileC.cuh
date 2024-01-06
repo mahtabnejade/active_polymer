@@ -94,7 +94,7 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
                 d_zz[tidd]=roundedNumber_z[tid];
             }
             else{
-                *zerofactorr = *zerofactorr + 1;
+                zerofactorr[tid] = 1;
                 d_xx[tid]=0.0;
                 d_yy[tid]=0.0;
                 d_zz[tid]=0.0;
@@ -107,24 +107,22 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
   
 }
 
-__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr){
+__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr, int *zerofactorr_sum){
 
 
     int NN = int(N/skipfactor);
-    int *zero_factorr;
-    cudaMalloc((void**)&zero_factorr, sizeof(int));
-    cudaMemcpy(zero_factorr, zerofactorr, sizeof(int) , cudaMemcpyHostToDevice);
-    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zero_factorr);
-    printf("zarofactor=%i", &zero_factorr);
-    cudaMemcpy(zerofactorr, zero_factorr, sizeof(int) , cudaMemcpyDeviceToHost);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, zerofactorr);
+    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);\
+    //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
+    int d_zerofactorr_sum;
+    cudaMemcpy(d_zerofactorr_sum, zerofactorr_sum, sizeof(int) , cudaMemcpyDeviceToHost);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
 
 
 }
 
 
 
-__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zero_counter){
+__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zero_factor){
 
     int tid = blockIdx.x*blockDim.x + threadIdx.x;
     int tidd = int(tid/skipfactor);
@@ -154,7 +152,7 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
                 d_vzz[tidd]=roundedNumber_vz[tid];
             }
             else{
-                *zero_counter = *zero_counter+1;
+                zero_factor[tid] = 1;
                 d_vxx[tid]=0.0;
                 d_vyy[tid]=0.0;
                 d_vzz[tid]=0.0;
@@ -177,16 +175,15 @@ __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double
 
 }
 //only for mpcd to reduce the data
-__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor){
+__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactor_sum){
 
 
     int NN = int(N/skipfactor);
-    int *zero_factor;
-    cudaMalloc((void**)&zero_factor, sizeof(int));
-    cudaMemcpy(zero_factor, zerofactor, sizeof(int) , cudaMemcpyHostToDevice);
-    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zero_factor);
-    cudaMemcpy(zerofactor, zero_factor, sizeof(int) , cudaMemcpyDeviceToHost);
-    xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, zerofactor);
+    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
+    //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
+    int d_zerofactor_sum;
+    cudaMemcpy(d_zerofactor_sum, zerofactor_sum, sizeof(int) , cudaMemcpyDeviceToHost);
+    xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
 }
  
