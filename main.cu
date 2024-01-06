@@ -67,12 +67,8 @@ int main(int argc, const char* argv[])
     double *gama_T;
     gama_T = (double*) malloc(sizeof(double));
     *gama_T = 0.8;
-    int *zerofactor;
-    zerofactor = (int*) malloc(sizeof(int));
-    *zerofactor = 0;
-    int *zerofactorr;
-    zerofactorr = (int*) malloc(sizeof(int));
-    *zerofactorr = 0;
+    
+
     double *temperature;
     temperature = (double*) malloc(sizeof(double));
     *temperature = 1.0;
@@ -214,8 +210,18 @@ int main(int argc, const char* argv[])
 
     // Calculate the grid size based on your data size and the block size
     int grid_size_ = (dataSize + blockSize_ - 1) / blockSize_;
+/////////////////////////////////////////////////////////////////////
 
-    //printf("****\n");
+    //allocate memory for counting zaro factors in reducing and limiting the data to a specific box around the MD particles. 
+
+    int *zerofactor_sum; //an integer to sum over all zeros. 
+    cudaMalloc((void**)&zerofactorsumblock, sizeof(int) * grid_size_);
+    int *zerofactor; //a 0/1 array 
+    cudaMalloc((void**)&zerofactor, sizeof(int) * N);
+    int zerofactorr_sum; //an integer to sum over all zeros.
+    cudaMalloc((void**)&zerofactorrsumblock, sizeof(int) * grid_size_);
+    int *zerofactorr; //a 0/1 array
+    cudaMalloc((void**)&zerofactorr, sizeof(int) * N);
 
 //////////////////////////////////////////////////////////////////////
 
@@ -368,7 +374,7 @@ int main(int argc, const char* argv[])
       
         xyz_trj(basename + "_traj.xyz", d_mdX, d_mdY , d_mdZ, Nmd);
         //xyz_trj(basename + "_mpcdtraj.xyz", d_x, d_y , d_z, N);
-        reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
+        reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorr_sum);
 
  
         for(int t = TIME/swapsize ; t<T; t++)
@@ -433,8 +439,8 @@ int main(int argc, const char* argv[])
 
             xyz_trj(basename + "_traj.xyz", d_mdX, d_mdY , d_mdZ, Nmd);
             xyz_trj(basename + "_vel.xyz", d_mdVx, d_mdVy , d_mdVz, Nmd);
-            reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
-            reducevel(basename, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, grid_size,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
+            reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorr_sum);
+            reducevel(basename, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, grid_size,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor, zerofactor_sum);
             xyz_veltraj_both(basename, d_xx, d_yy, d_zz,d_vxx, d_vyy, d_vzz, NN, d_endp_x, d_endp_y, d_endp_z, scalefactor, grid_size);
             //xyz_trj(basename + "_mpcdtraj.xyz", d_x, d_y , d_z, N);
             //xyz_trj(basename + "_mpcdvel.xyz", d_vx, d_vy , d_vz, N);
