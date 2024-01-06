@@ -31,7 +31,29 @@ __global__ void reduceKernel_(double *input, double *output, int N) {
     }
 }
 
+__global__ void intreduceKernel_(int *input, int *output, int N) {
+    extern __shared__ int sssdata[];
+    int tid = threadIdx.x;
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
 
+    sssdata[tid] = (i < N) ? input[i] : 0.0;
+    __syncthreads();
+
+    for (int s = blockDim.x / 2; s > 32; s >>= 1) {
+        if (tid < s) {
+            sssdata[tid] += sssdata[tid + s];
+        }
+        __syncthreads();
+    }
+
+    if (tid < 32) {
+        warp_Reduce(sssdata, tid);
+    }
+
+    if (tid == 0) {
+        output[blockIdx.x] = sssdata[0];
+    }
+}
 
 __host__ void CM_system(double *mdX, double *mdY, double *mdZ, double *dX, double *dY, double *dZ, int Nmd, int N, double *mdX_tot, double *mdY_tot, double *mdZ_tot
 , double *dX_tot, double *dY_tot, double *dZ_tot, int grid_size,int shared_mem_size, int blockSize_, int grid_size_, int mass, int mass_fluid, double *Xcm, double *Ycm, double *Zcm , double *CMsumblock_x, double *CMsumblock_y, double *CMsumblock_z,
