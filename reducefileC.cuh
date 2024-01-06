@@ -116,7 +116,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
-    reduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
@@ -197,7 +197,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
 
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
     //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
-    reduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
     cudaMemcpy(block_sum_zerofactor, zerofactorsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     int d_zerofactor_sum = 0;
     for (int j = 0; j < grid_size; j++)
