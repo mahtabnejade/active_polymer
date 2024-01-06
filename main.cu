@@ -486,8 +486,10 @@ int main(int argc, const char* argv[])
         cudaFree(d_vxx); cudaFree(d_vyy); cudaFree(d_vzz);
         cudaFree(roundedNumber_x); cudaFree(roundedNumber_y); cudaFree(roundedNumber_z);
         cudaFree(roundedNumber_vx); cudaFree(roundedNumber_vy); cudaFree(roundedNumber_vz);
+        cudaFree(zerofactor);  cudaFree(zerofactorr);
+        cudaFree(zerofactorsumblock); cudaFree(zerofactorrsumblock);
         curandDestroyGenerator(gen);
-
+        
         //reducefile_traj();
         //reducefile_vel();
 
