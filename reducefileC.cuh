@@ -114,7 +114,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
     int shared_mem_size_ = 3 * blockSize_ * sizeof(int);
     int block_sum_zerofactorr[grid_size_];
 
-    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);\
+    reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
     reduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
     gpuErrchk( cudaPeekAtLastError() );
@@ -127,7 +127,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
             d_zerofactorr_sum += block_sum_zerofactorr[j];
         }
     
-    
+    printf("number of zeros is = %i\n", d_zerofactorr_sum):
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
 
 
@@ -188,7 +188,7 @@ __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double
 
 }
 //only for mpcd to reduce the data
-__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactorsumblock){
+__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactorsumblock, int blockSize_ , int grid_size_){
 
 
     int NN = int(N/skipfactor);
