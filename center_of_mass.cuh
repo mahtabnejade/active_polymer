@@ -7,6 +7,15 @@ __device__ void warp_Reduce(volatile double *ssdata, int tid) {
     ssdata[tid] += ssdata[tid + 1];
 }
 
+__device__ void warp_Reduce_int(volatile int *ssdata, int tid) {
+    ssdata[tid] += ssdata[tid + 32];
+    ssdata[tid] += ssdata[tid + 16];
+    ssdata[tid] += ssdata[tid + 8];
+    ssdata[tid] += ssdata[tid + 4];
+    ssdata[tid] += ssdata[tid + 2];
+    ssdata[tid] += ssdata[tid + 1];
+}
+
 __global__ void reduceKernel_(double *input, double *output, int N) {
     extern __shared__ double sssdata[];
     int tid = threadIdx.x;
@@ -32,26 +41,26 @@ __global__ void reduceKernel_(double *input, double *output, int N) {
 }
 
 __global__ void intreduceKernel_(int *input, int *output, int N) {
-    extern __shared__ int sssdata[];
+    extern __shared__ int sssdata_int[];
     int tid = threadIdx.x;
     int i = blockIdx.x * blockDim.x + threadIdx.x;
 
-    sssdata[tid] = (i < N) ? input[i] : 0.0;
+    sssdata_int[tid] = (i < N) ? input[i] : 0.0;
     __syncthreads();
 
     for (int s = blockDim.x / 2; s > 32; s >>= 1) {
         if (tid < s) {
-            sssdata[tid] += sssdata[tid + s];
+            sssdata_int[tid] += sssdata_int[tid + s];
         }
         __syncthreads();
     }
 
     if (tid < 32) {
-        warp_Reduce(sssdata, tid);
+        warp_Reduce_int(sssdata_int, tid);
     }
 
     if (tid == 0) {
-        output[blockIdx.x] = sssdata[0];
+        output[blockIdx.x] = sssdata_int[0];
     }
 }
 
