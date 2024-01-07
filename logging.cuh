@@ -97,6 +97,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
         else {
             traj<<"C      "<<h_X[i]<<"      "<<h_Y[i]<<"      "<<h_Z[i]<<"\n";
             counter = counter +1;
+            printf("nonzero\n");
         }
     }
     printf("counter = %i\n", counter);
