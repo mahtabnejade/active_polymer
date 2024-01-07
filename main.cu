@@ -217,11 +217,11 @@ int main(int argc, const char* argv[])
     int *zerofactorsumblock; //an array to sum over all zero blocks. 
     cudaMalloc((void**)&zerofactorsumblock, sizeof(int) * grid_size_);
     int *zerofactor; //a 0/1 array 
-    cudaMalloc((void**)&zerofactor, sizeof(int) * N);
+    cudaMalloc((void**)&zerofactor, sizeof(int) * NN);
     int *zerofactorrsumblock; //an array to sum over all zero blocks.
     cudaMalloc((void**)&zerofactorrsumblock, sizeof(int) * grid_size_);
     int *zerofactorr; //a 0/1 array
-    cudaMalloc((void**)&zerofactorr, sizeof(int) * N);
+    cudaMalloc((void**)&zerofactorr, sizeof(int) * NN);
 
 //////////////////////////////////////////////////////////////////////
 
