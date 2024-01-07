@@ -95,9 +95,9 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
             }
             else{
                 zerofactorr[tid] = 1;
-                d_xx[tid]=0.0;
-                d_yy[tid]=0.0;
-                d_zz[tid]=0.0;
+                d_xx[tidd]=0.0;
+                d_yy[tidd]=0.0;
+                d_zz[tidd]=0.0;
 
 
             }
@@ -166,9 +166,9 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
             }
             else{
                 zero_factor[tid] = 1;
-                d_vxx[tid]=0.0;
-                d_vyy[tid]=0.0;
-                d_vzz[tid]=0.0;
+                d_vxx[tidd]=0.0;
+                d_vyy[tidd]=0.0;
+                d_vzz[tidd]=0.0;
             }
         } 
     }
