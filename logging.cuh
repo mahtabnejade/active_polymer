@@ -90,7 +90,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     traj<<N_nonzero<<"\n\n";
     for (int i =0 ; i< Nmd ; i++)
     {
-        if (h_X[i] == 0.0 && h_Y[i] == 0.0 && h_Z[i] == 0.0) {
+        if (h_X[i] == 0.0000000 && h_Y[i] == 0.0000000 && h_Z[i] == 0.0000000) {
             continue;
         }
 
