@@ -166,6 +166,7 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
             }
             else{
                 zero_factor[tid] = 1;
+                printf("*");
                 d_vxx[tidd]=0.0;
                 d_vyy[tidd]=0.0;
                 d_vzz[tidd]=0.0;
