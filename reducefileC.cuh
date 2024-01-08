@@ -125,7 +125,7 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
             d_zerofactorr_sum += block_sum_zerofactorr[j];
         }
     
-    printf("number of zeros is = %i\n", d_zerofactorr_sum);
+    //printf("number of zeros is = %i\n", d_zerofactorr_sum);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
 
 
