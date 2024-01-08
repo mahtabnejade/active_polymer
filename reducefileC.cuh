@@ -78,9 +78,9 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
         {
 
            
-            if (d_x[tid] < 5.0 && d_y[tid] < 5.0 && d_z[tid] < 5.0 && d_x[tid] > -5.0 && d_y[tid] > -5.0 && d_z[tid] > -5.0) {
+            //if (d_x[tid] < 5.0 && d_y[tid] < 5.0 && d_z[tid] < 5.0 && d_x[tid] > -5.0 && d_y[tid] > -5.0 && d_z[tid] > -5.0) {
 
-                printf("*&*\n");
+                //printf("*&*\n");
 
                 roundedNumber_x[tid] = roundf(d_x[tid] * pow(10, decimalPlaces)) / pow(10, decimalPlaces);
                 //roundedNumber_x[tid]=d_x[tid];
@@ -92,15 +92,13 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
                 d_xx[tidd]=roundedNumber_x[tid];
                 d_yy[tidd]=roundedNumber_y[tid];
                 d_zz[tidd]=roundedNumber_z[tid];
-            }
-            else{
-                zerofactorr[tid] = 1;
-                d_xx[tidd]=1000.0000000;
-                d_yy[tidd]=1000.0000000;
-                d_zz[tidd]=1000.0000000;
-
-
-            }
+            //}
+            //else{
+            //    zerofactorr[tid] = 1;
+            //    d_xx[tidd]=1000.0000000;
+            //    d_yy[tidd]=1000.0000000;
+            //    d_zz[tidd]=1000.0000000;
+            //}
         }
         
     }
@@ -149,7 +147,7 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
         {
             
 
-            if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 ){
+            //if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 ){
 
                 roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
                 //roundedNumber_vx[tid]=d_vx[tid];
@@ -163,14 +161,14 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
                 d_vxx[tidd]=roundedNumber_vx[tid];
                 d_vyy[tidd]=roundedNumber_vy[tid];
                 d_vzz[tidd]=roundedNumber_vz[tid];
-            }
-            else{
-                zero_factor[tid] = 1;
+            //}
+            //else{
+            //    zero_factor[tid] = 1;
                 //printf("*");
-                d_vxx[tidd]=1000.0000000;
-                d_vyy[tidd]=1000.0000000;
-                d_vzz[tidd]=1000.0000000;
-            }
+            //    d_vxx[tidd]=1000.0000000;
+            //    d_vyy[tidd]=1000.0000000;
+            //    d_vzz[tidd]=1000.0000000;
+            //}
         } 
     }
 
