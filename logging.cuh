@@ -85,21 +85,21 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     cudaMemcpy(h_X, d_X, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Y, d_Y, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Z, d_Z, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
-    //printf("N_nonzero=%i\n", N_nonzero);
+    printf("N_nonzero=%i\n", N_nonzero);
     int counter = 0;
-    //traj<<N_nonzero<<"\n\n";
-    traj<<Nmd<<"\n\n";
+    traj<<N_nonzero<<"\n\n";
+    //traj<<Nmd<<"\n\n";
     for (int i =0 ; i< Nmd ; i++)
     {
-        //if (h_X[i] == 1000.0000000 && h_Y[i] == 1000.0000000 && h_Z[i] == 1000.0000000) {
-        //    printf("zerooo\n");
-        //}
+        if (h_X[i] == 1000.0000000 && h_Y[i] == 1000.0000000 && h_Z[i] == 1000.0000000) {
+            printf("zerooo\n");
+        }
 
-        //else {
+        else {
             traj<<"C      "<<h_X[i]<<"      "<<h_Y[i]<<"      "<<h_Z[i]<<"\n";
-        //    counter = counter +1;
-        //    printf("nonzero\n");
-        //}
+            counter = counter +1;
+            printf("nonzero\n");
+        }
     }
     //printf("counter = %i\n", counter);
 
