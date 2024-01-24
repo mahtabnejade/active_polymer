@@ -148,6 +148,7 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
             
 
             //if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 ){
+            if (d_y[tid]<10 && d_y[tid]>=0){
 
                 roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
                 //roundedNumber_vx[tid]=d_vx[tid];
@@ -161,14 +162,15 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
                 d_vxx[tidd]=roundedNumber_vx[tid];
                 d_vyy[tidd]=roundedNumber_vy[tid];
                 d_vzz[tidd]=roundedNumber_vz[tid];
+            }
             //}
-            //else{
-            //    zero_factor[tid] = 1;
-                //printf("*");
-            //    d_vxx[tidd]=1000.0000000;
-            //    d_vyy[tidd]=1000.0000000;
-            //    d_vzz[tidd]=1000.0000000;
-            //}
+            else{
+                  zero_factor[tid] = 1;
+                  printf("*");
+                  d_vxx[tidd]=1000.0000000;
+                  d_vyy[tidd]=1000.0000000;
+                  d_vzz[tidd]=1000.0000000;
+                }
         } 
     }
 
