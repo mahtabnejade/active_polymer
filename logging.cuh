@@ -85,7 +85,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     cudaMemcpy(h_X, d_X, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Y, d_Y, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
     cudaMemcpy(h_Z, d_Z, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
-    printf("N_nonzero=%i\n", N_nonzero);
+    //printf("N_nonzero=%i\n", N_nonzero);
     int counter = 0;
     //traj<<N_nonzero<<"\n\n";
     traj<<Nmd<<"\n\n";
