@@ -147,6 +147,17 @@ __global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vx
         {
             
 
+
+
+
+
+
+
+
+
+
+
+
             //if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 ){
             if (d_y[tid]<10 && d_y[tid]>=0){
 
@@ -207,7 +218,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
            
         }
 
-    
+    printf("zerofactor = %i", d_zerofactor_sum);
     xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
 }
