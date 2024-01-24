@@ -79,6 +79,8 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
 
            
             //if (d_x[tid] < 5.0 && d_y[tid] < 5.0 && d_z[tid] < 5.0 && d_x[tid] > -5.0 && d_y[tid] > -5.0 && d_z[tid] > -5.0) {
+            if (d_y[tid]<10 && d_y[tid]>=0){
+
 
                 //printf("*&*\n");
 
@@ -92,13 +94,14 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
                 d_xx[tidd]=roundedNumber_x[tid];
                 d_yy[tidd]=roundedNumber_y[tid];
                 d_zz[tidd]=roundedNumber_z[tid];
+            }
             //}
-            //else{
-            //    zerofactorr[tid] = 1;
-            //    d_xx[tidd]=1000.0000000;
-            //    d_yy[tidd]=1000.0000000;
-            //    d_zz[tidd]=1000.0000000;
-            //}
+            else{
+                zerofactorr[tid] = 1;
+                d_xx[tidd]=1000.0000000;
+                d_yy[tidd]=1000.0000000;
+                d_zz[tidd]=1000.0000000;
+            }
         }
         
     }
