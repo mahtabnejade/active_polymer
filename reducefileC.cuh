@@ -63,6 +63,59 @@ int reducefile_vel() {
 
     return 0;
 }*/
+__global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy, double *d_zz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, int zerofactorr1, double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2, double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, int zerofactorr2, int NN){
+
+    tidd= blockIdx.x*blockDim.x + threadIdx.x;
+    if (tidd<NN){
+
+        if(d_yy[tidd]>=0 && d_yy[tidd]<10){
+
+            d_yy_lim1[tidd]=d_yy[tidd];
+            d_xx_lim1[tidd]=d_xx[tidd];
+            d_zz_lim1[tidd]=d_zz[tidd];
+            d_vyy_lim1[tidd]=d_vyy[tidd];
+            d_vxx_lim1[tidd]=d_vxx[tidd];
+            d_vzz_lim1[tidd]=d_vzz[tidd];
+
+
+        }
+        else{
+                zerofactorr1[tid] = 1;
+                d_xx_lim1[tidd]=1000.0000000;
+                d_yy_lim1[tidd]=1000.0000000;
+                d_zz_lim1[tidd]=1000.0000000;
+                d_vyy_lim1[tidd]=d_vyy[tidd];
+                d_vxx_lim1[tidd]=d_vxx[tidd];
+                d_vzz_lim1[tidd]=d_vzz[tidd];
+            }
+
+        
+        if(d_yy[tidd]>=10 && d_yy[tidd]<20){
+
+            d_yy_lim2[tidd]=d_yy[tidd];
+            d_xx_lim2[tidd]=d_xx[tidd];
+            d_zz_lim2[tidd]=d_zz[tidd];
+            d_vyy_lim2[tidd]=d_vyy[tidd];
+            d_vxx_lim2[tidd]=d_vxx[tidd];
+            d_vzz_lim2[tidd]=d_vzz[tidd];
+
+
+        }
+        else{
+                zerofactorr2[tid] = 1;
+                d_xx_lim2[tidd]=1000.0000000;
+                d_yy_lim2[tidd]=1000.0000000;
+                d_zz_lim2[tidd]=1000.0000000;
+                d_vyy_lim2[tidd]=d_vyy[tidd];
+                d_vxx_lim2[tidd]=d_vxx[tidd];
+                d_vzz_lim2[tidd]=d_vzz[tidd];
+            }
+    }
+
+}
+
+
+
 
 __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr){
 
