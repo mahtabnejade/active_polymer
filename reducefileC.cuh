@@ -455,14 +455,18 @@ __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double
 
 }
 //only for mpcd to reduce the data
-__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactorsumblock, int blockSize_ , int grid_size_,
-double *d_vxx_lim1,  double *d_vyy_lim1, double *d_vzz_lim1, int zerofactor1,
-double *d_vxx_lim2,  double *d_vyy_lim2, double *d_vzz_lim2, int zerofactor2,
-double *d_vxx_lim3,  double *d_vyy_lim3, double *d_vzz_lim3, int zerofactor3,
-double *d_vxx_lim4,  double *d_vyy_lim4, double *d_vzz_lim4, int zerofactor4,
-double *d_vxx_lim5,  double *d_vyy_lim5, double *d_vzz_lim5, int zerofactor5,
-double *d_vxx_lim6,  double *d_vyy_lim6, double *d_vzz_lim6, int zerofactor6,
-double *d_vxx_lim7,  double *d_vyy_lim7, double *d_vzz_lim7, int zerofactor7){
+__host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,
+    double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, 
+    int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor,
+    int *zerofactorsumblock, int *zerofactorsumblock1,int *zerofactorsumblock2,int *zerofactorsumblock3,int *zerofactorsumblock4,
+    int *zerofactorsumblock5, int *zerofactorsumblock6, int *zerofactorsumblock7, int blockSize_ , int grid_size_,
+    double *d_vxx_lim1,  double *d_vyy_lim1, double *d_vzz_lim1, int zerofactor1,
+    double *d_vxx_lim2,  double *d_vyy_lim2, double *d_vzz_lim2, int zerofactor2,
+    double *d_vxx_lim3,  double *d_vyy_lim3, double *d_vzz_lim3, int zerofactor3,
+    double *d_vxx_lim4,  double *d_vyy_lim4, double *d_vzz_lim4, int zerofactor4,
+    double *d_vxx_lim5,  double *d_vyy_lim5, double *d_vzz_lim5, int zerofactor5,
+    double *d_vxx_lim6,  double *d_vyy_lim6, double *d_vzz_lim6, int zerofactor6,
+    double *d_vxx_lim7,  double *d_vyy_lim7, double *d_vzz_lim7, int zerofactor7){
 
 
     int NN = int(N/skipfactor);
