@@ -307,6 +307,15 @@ double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int zerofactorr7 ){
     int shared_mem_size_ = 3 * blockSize_ * sizeof(int);
     int block_sum_zerofactorr[grid_size_];
 
+    int block_sum_zerofactorr1[grid_size_];
+    int block_sum_zerofactorr2[grid_size_];
+    int block_sum_zerofactorr3[grid_size_];
+    int block_sum_zerofactorr4[grid_size_];
+    int block_sum_zerofactorr5[grid_size_];
+    int block_sum_zerofactorr6[grid_size_];
+    int block_sum_zerofactorr7[grid_size_];
+
+
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
 
     spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz,
@@ -472,6 +481,14 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     int NN = int(N/skipfactor);
     int shared_mem_size_ = 3 * blockSize_ * sizeof(int);
     int block_sum_zerofactor[grid_size_];
+
+    int block_sum_zerofactor1[grid_size_];
+    int block_sum_zerofactor2[grid_size_];
+    int block_sum_zerofactor3[grid_size_];
+    int block_sum_zerofactor4[grid_size_];
+    int block_sum_zerofactor5[grid_size_];
+    int block_sum_zerofactor6[grid_size_];
+    int block_sum_zerofactor7[grid_size_];
 
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
 
