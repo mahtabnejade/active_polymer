@@ -63,14 +63,28 @@ int reducefile_vel() {
 
     return 0;
 }*/
-__global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy, double *d_zz, double *d_vxx, double *d_vyy, double *d_vzz,
-double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, int zerofactorr1,
-double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2, double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, int zerofactorr2,
-double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3, double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3, int zerofactorr3,
-double *d_xx_lim4,  double *d_yy_lim4, double *d_zz_lim4, double *d_vxx_lim4, double *d_vyy_lim4, double *d_vzz_lim4, int zerofactorr4,
-double *d_xx_lim5,  double *d_yy_lim5, double *d_zz_lim5, double *d_vxx_lim5, double *d_vyy_lim5, double *d_vzz_lim5, int zerofactorr5,
-double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6, double *d_vxx_lim6, double *d_vyy_lim6, double *d_vzz_lim6, int zerofactorr6,
-double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, int zerofactorr7, int NN){
+__global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy,
+double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, 
+//double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
+int zerofactorr1,
+double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2,
+//double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, 
+ int zerofactorr2,
+double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3,
+//double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3, 
+ int zerofactorr3,
+double *d_xx_lim4,  double *d_yy_lim4, double *d_zz_lim4,
+//double *d_vxx_lim4, double *d_vyy_lim4, double *d_vzz_lim4, 
+ int zerofactorr4,
+double *d_xx_lim5,  double *d_yy_lim5, double *d_zz_lim5,
+//double *d_vxx_lim5, double *d_vyy_lim5, double *d_vzz_lim5, 
+ int zerofactorr5,
+double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6,
+//double *d_vxx_lim6, double *d_vyy_lim6, double *d_vzz_lim6, 
+ int zerofactorr6,
+double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
+//double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, 
+ int zerofactorr7, int NN){
 
     tidd= blockIdx.x*blockDim.x + threadIdx.x;
     //we should first make d_xx_lim1 and ... elements equal to 1000.000000
@@ -81,9 +95,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_yy_lim1[tidd]=d_yy[tidd];
             d_xx_lim1[tidd]=d_xx[tidd];
             d_zz_lim1[tidd]=d_zz[tidd];
-            d_vyy_lim1[tidd]=d_vyy[tidd];
-            d_vxx_lim1[tidd]=d_vxx[tidd];
-            d_vzz_lim1[tidd]=d_vzz[tidd];
+            
             zerofactorr1[tid] = 1;
 
 
@@ -96,9 +108,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_yy_lim2[tidd]=d_yy[tidd];
             d_xx_lim2[tidd]=d_xx[tidd];
             d_zz_lim2[tidd]=d_zz[tidd];
-            d_vyy_lim2[tidd]=d_vyy[tidd];
-            d_vxx_lim2[tidd]=d_vxx[tidd];
-            d_vzz_lim2[tidd]=d_vzz[tidd];
+          
             zerofactorr2[tid] = 1;
 
 
@@ -110,9 +120,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_yy_lim3[tidd]=d_yy[tidd];
             d_xx_lim3[tidd]=d_xx[tidd];
             d_zz_lim3[tidd]=d_zz[tidd];
-            d_vyy_lim3[tidd]=d_vyy[tidd];
-            d_vxx_lim3[tidd]=d_vxx[tidd];
-            d_vzz_lim3[tidd]=d_vzz[tidd];
+      
             zerofactorr3[tid] = 1;
 
 
@@ -124,9 +132,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_yy_lim4[tidd]=d_yy[tidd];
             d_xx_lim4[tidd]=d_xx[tidd];
             d_zz_lim4[tidd]=d_zz[tidd];
-            d_vyy_lim4[tidd]=d_vyy[tidd];
-            d_vxx_lim4[tidd]=d_vxx[tidd];
-            d_vzz_lim4[tidd]=d_vzz[tidd];
+
             zerofactorr4[tid] = 1;
 
 
@@ -138,9 +144,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_yy_lim5[tidd]=d_yy[tidd];
             d_xx_lim5[tidd]=d_xx[tidd];
             d_zz_lim5[tidd]=d_zz[tidd];
-            d_vyy_lim5[tidd]=d_vyy[tidd];
-            d_vxx_lim5[tidd]=d_vxx[tidd];
-            d_vzz_lim5[tidd]=d_vzz[tidd];
+       
             zerofactorr5[tid] = 1;
 
 
@@ -152,9 +156,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_yy_lim6[tidd]=d_yy[tidd];
             d_xx_lim6[tidd]=d_xx[tidd];
             d_zz_lim6[tidd]=d_zz[tidd];
-            d_vyy_lim6[tidd]=d_vyy[tidd];
-            d_vxx_lim6[tidd]=d_vxx[tidd];
-            d_vzz_lim6[tidd]=d_vzz[tidd];
+        
             zerofactorr6[tid] = 1;
 
 
@@ -166,9 +168,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_yy_lim7[tidd]=d_yy[tidd];
             d_xx_lim7[tidd]=d_xx[tidd];
             d_zz_lim7[tidd]=d_zz[tidd];
-            d_vyy_lim7[tidd]=d_vyy[tidd];
-            d_vxx_lim7[tidd]=d_vxx[tidd];
-            d_vzz_lim7[tidd]=d_vzz[tidd];
+          
             zerofactorr7[tid] = 1;
 
 
@@ -178,7 +178,49 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
 
 }
 
+__global__ void velocity_limiting_kernel( double *d_zz, double *d_vxx, double *d_vyy, double *d_vzz,
+double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
+int zerofactorr1,
+double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, 
+int zerofactor2,
+double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3, 
+int zerofactor3,
+double *d_vxx_lim4, double *d_vyy_lim4, double *d_vzz_lim4, 
+int zerofactor4,
+double *d_vxx_lim5, double *d_vyy_lim5, double *d_vzz_lim5, 
+int zerofactor5,
+double *d_vxx_lim6, double *d_vyy_lim6, double *d_vzz_lim6, 
+int zerofactor6,
+double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, 
+int zerofactor7, int NN){
 
+        tidd= blockIdx.x*blockDim.x + threadIdx.x;
+        if (tidd<NN){
+            d_vyy_lim1[tidd]=d_vyy[tidd];
+            d_vxx_lim1[tidd]=d_vxx[tidd];
+            d_vzz_lim1[tidd]=d_vzz[tidd];
+            d_vyy_lim2[tidd]=d_vyy[tidd];
+            d_vxx_lim2[tidd]=d_vxx[tidd];
+            d_vzz_lim2[tidd]=d_vzz[tidd];
+            d_vyy_lim3[tidd]=d_vyy[tidd];
+            d_vxx_lim3[tidd]=d_vxx[tidd];
+            d_vzz_lim3[tidd]=d_vzz[tidd];
+            d_vyy_lim4[tidd]=d_vyy[tidd];
+            d_vxx_lim4[tidd]=d_vxx[tidd];
+            d_vzz_lim4[tidd]=d_vzz[tidd];
+            d_vyy_lim5[tidd]=d_vyy[tidd];
+            d_vxx_lim5[tidd]=d_vxx[tidd];
+            d_vzz_lim5[tidd]=d_vzz[tidd];
+            d_vyy_lim6[tidd]=d_vyy[tidd];
+            d_vxx_lim6[tidd]=d_vxx[tidd];
+            d_vzz_lim6[tidd]=d_vzz[tidd];
+            d_vyy_lim7[tidd]=d_vyy[tidd];
+            d_vxx_lim7[tidd]=d_vxx[tidd];
+            d_vzz_lim7[tidd]=d_vzz[tidd];
+        }
+
+
+}
 
 
 __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr){
@@ -242,17 +284,20 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
 
-spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz, d_vxx,d_vyy, d_vzz,
-    d_xx_lim1, d_yy_lim1, d_zz_lim1, d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
-    d_xx_lim2,  d_yy_lim2, d_zz_lim2, d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
-    d_xx_lim3,  d_yy_lim3, d_zz_lim3, d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
-    d_xx_lim4,  d_yy_lim4, d_zz_lim4, d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
-    d_xx_lim5,  d_yy_lim5, d_zz_lim5, d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
-    d_xx_lim6,  d_yy_lim6, d_zz_lim6, d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
-    d_xx_lim7, d_yy_lim7, d_zz_lim7, d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7, NN);
+    spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz, d_vxx,d_vyy, d_vzz,
+        d_xx_lim1, d_yy_lim1, d_zz_lim1, d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
+        d_xx_lim2,  d_yy_lim2, d_zz_lim2, d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
+        d_xx_lim3,  d_yy_lim3, d_zz_lim3, d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
+        d_xx_lim4,  d_yy_lim4, d_zz_lim4, d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
+        d_xx_lim5,  d_yy_lim5, d_zz_lim5, d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
+        d_xx_lim6,  d_yy_lim6, d_zz_lim6, d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
+        d_xx_lim7, d_yy_lim7, d_zz_lim7, d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7, NN);
 
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
+
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
 
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr1, zerofactorrsumblock1, N);
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr2, zerofactorrsumblock2, N);
