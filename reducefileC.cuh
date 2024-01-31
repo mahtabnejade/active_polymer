@@ -235,14 +235,43 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
+
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr1, zerofactorrsumblock1, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr2, zerofactorrsumblock2, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr3, zerofactorrsumblock3, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr4, zerofactorrsumblock4, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr5, zerofactorrsumblock5, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr6, zerofactorrsumblock6, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr7, zerofactorrsumblock7, N);
+
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
     cudaMemcpy(block_sum_zerofactorr, zerofactorrsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+
+    cudaMemcpy(block_sum_zerofactorr1, zerofactorrsumblock1, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactorr2, zerofactorrsumblock2, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactorr3, zerofactorrsumblock3, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactorr4, zerofactorrsumblock4, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactorr5, zerofactorrsumblock5, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactorr6, zerofactorrsumblock6, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactorr7, zerofactorrsumblock7, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+
     int d_zerofactorr_sum = 0;
+
+    int d_zerofactorr1_sum = 0;
+    int d_zerofactorr2_sum = 0;
+    int d_zerofactorr3_sum = 0;
+    int d_zerofactorr4_sum = 0;
+    int d_zerofactorr5_sum = 0;
+    int d_zerofactorr6_sum = 0;
+    int d_zerofactorr7_sum = 0;
+
     for (int j = 0; j < grid_size; j++)
         {
             d_zerofactorr_sum += block_sum_zerofactorr[j];
+
+
         }
     
     //printf("number of zeros is = %i\n", d_zerofactorr_sum);
