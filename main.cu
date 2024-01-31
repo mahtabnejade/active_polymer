@@ -374,7 +374,14 @@ int main(int argc, const char* argv[])
       
         xyz_trj(basename + "_traj.xyz", d_mdX, d_mdY , d_mdZ, Nmd);
         //xyz_trj(basename + "_mpcdtraj.xyz", d_x, d_y , d_z, N);
-        reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorrsumblock, blockSize_, grid_size_);
+        reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz,d_vxx, d_vyy, d_vzz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorrsumblock, blockSize_, grid_size_,
+        d_xx_lim1, d_yy_lim1, d_zz_lim1, d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
+        d_xx_lim2,  d_yy_lim2, d_zz_lim2, d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
+        d_xx_lim3,  d_yy_lim3, d_zz_lim3, d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
+        d_xx_lim4,  d_yy_lim4, d_zz_lim4, d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
+        d_xx_lim5,  d_yy_lim5, d_zz_lim5, d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
+        d_xx_lim6,  d_yy_lim6, d_zz_lim6, d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
+        d_xx_lim7, d_yy_lim7, d_zz_lim7, d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7);
 
  
         for(int t = TIME/swapsize ; t<T; t++)
@@ -439,8 +446,22 @@ int main(int argc, const char* argv[])
 
             xyz_trj(basename + "_traj.xyz", d_mdX, d_mdY , d_mdZ, Nmd);
             xyz_trj(basename + "_vel.xyz", d_mdVx, d_mdVy , d_mdVz, Nmd);
-            reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorrsumblock, blockSize_, grid_size_);
-            reducevel(basename, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, grid_size,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor, zerofactorsumblock, blockSize_, grid_size_);
+            reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorrsumblock, blockSize_, grid_size_,
+                d_xx_lim1,  d_yy_lim1,  d_zz_lim1, zerofactorr1,
+                d_xx_lim2,  d_yy_lim2,  d_zz_lim2, zerofactorr2,
+                d_xx_lim3,  d_yy_lim3,  d_zz_lim3, zerofactorr3,
+                d_xx_lim4,  d_yy_lim4,  d_zz_lim4, zerofactorr4,
+                d_xx_lim5,  d_yy_lim5,  d_zz_lim5, zerofactorr5,
+                d_xx_lim6,  d_yy_lim6,  d_zz_lim6, zerofactorr6,
+                d_xx_lim7,  d_yy_lim7,  d_zz_lim7, zerofactorr7);
+            reducevel(basename, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, grid_size,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor, zerofactorsumblock, blockSize_, grid_size_,
+                d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
+                d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
+                d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
+                d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
+                d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
+                d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
+                d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7);
             xyz_veltraj_both(basename, d_xx, d_yy, d_zz,d_vxx, d_vyy, d_vzz, NN, d_endp_x, d_endp_y, d_endp_z, scalefactor, grid_size);
             //xyz_trj(basename + "_mpcdtraj.xyz", d_x, d_y , d_z, N);
             //xyz_trj(basename + "_mpcdvel.xyz", d_vx, d_vy , d_vz, N);
