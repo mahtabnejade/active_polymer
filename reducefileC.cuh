@@ -196,27 +196,42 @@ int zerofactor7, int NN){
 
         tidd= blockIdx.x*blockDim.x + threadIdx.x;
         if (tidd<NN){
-            d_vyy_lim1[tidd]=d_vyy[tidd];
-            d_vxx_lim1[tidd]=d_vxx[tidd];
-            d_vzz_lim1[tidd]=d_vzz[tidd];
-            d_vyy_lim2[tidd]=d_vyy[tidd];
-            d_vxx_lim2[tidd]=d_vxx[tidd];
-            d_vzz_lim2[tidd]=d_vzz[tidd];
-            d_vyy_lim3[tidd]=d_vyy[tidd];
-            d_vxx_lim3[tidd]=d_vxx[tidd];
-            d_vzz_lim3[tidd]=d_vzz[tidd];
-            d_vyy_lim4[tidd]=d_vyy[tidd];
-            d_vxx_lim4[tidd]=d_vxx[tidd];
-            d_vzz_lim4[tidd]=d_vzz[tidd];
-            d_vyy_lim5[tidd]=d_vyy[tidd];
-            d_vxx_lim5[tidd]=d_vxx[tidd];
-            d_vzz_lim5[tidd]=d_vzz[tidd];
-            d_vyy_lim6[tidd]=d_vyy[tidd];
-            d_vxx_lim6[tidd]=d_vxx[tidd];
-            d_vzz_lim6[tidd]=d_vzz[tidd];
-            d_vyy_lim7[tidd]=d_vyy[tidd];
-            d_vxx_lim7[tidd]=d_vxx[tidd];
-            d_vzz_lim7[tidd]=d_vzz[tidd];
+
+            if(d_yy[tidd]>=0 && d_yy[tidd]<10){
+                d_vyy_lim1[tidd]=d_vyy[tidd];
+                d_vxx_lim1[tidd]=d_vxx[tidd];
+                d_vzz_lim1[tidd]=d_vzz[tidd];
+            }
+            if(d_yy[tidd]>=10 && d_yy[tidd]<20){
+                d_vyy_lim2[tidd]=d_vyy[tidd];
+                d_vxx_lim2[tidd]=d_vxx[tidd];
+                d_vzz_lim2[tidd]=d_vzz[tidd];
+            }
+            if(d_yy[tidd]>=20 && d_yy[tidd]<30){
+                d_vyy_lim3[tidd]=d_vyy[tidd];
+                d_vxx_lim3[tidd]=d_vxx[tidd];
+                d_vzz_lim3[tidd]=d_vzz[tidd];
+            }
+            if(d_yy[tidd]>=30 && d_yy[tidd]<40){
+                d_vyy_lim4[tidd]=d_vyy[tidd];
+                d_vxx_lim4[tidd]=d_vxx[tidd];
+                d_vzz_lim4[tidd]=d_vzz[tidd];
+            }
+            if(d_yy[tidd]>=40 && d_yy[tidd]<50){
+                d_vyy_lim5[tidd]=d_vyy[tidd];
+                d_vxx_lim5[tidd]=d_vxx[tidd];
+                d_vzz_lim5[tidd]=d_vzz[tidd];
+            }
+            if(d_yy[tidd]>=50 && d_yy[tidd]<60){
+                d_vyy_lim6[tidd]=d_vyy[tidd];
+                d_vxx_lim6[tidd]=d_vxx[tidd];
+                d_vzz_lim6[tidd]=d_vzz[tidd];
+            }
+            if(d_yy[tidd]>=60 && d_yy[tidd]<70){
+                d_vyy_lim7[tidd]=d_vyy[tidd];
+                d_vxx_lim7[tidd]=d_vxx[tidd];
+                d_vzz_lim7[tidd]=d_vzz[tidd];
+            }
         }
 
 
