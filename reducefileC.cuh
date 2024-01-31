@@ -271,6 +271,15 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
         {
             d_zerofactorr_sum += block_sum_zerofactorr[j];
 
+            d_zerofactorr1_sum += block_sum_zerofactorr1[j];
+            d_zerofactorr2_sum += block_sum_zerofactorr2[j];
+            d_zerofactorr3_sum += block_sum_zerofactorr3[j];
+            d_zerofactorr4_sum += block_sum_zerofactorr4[j];
+            d_zerofactorr5_sum += block_sum_zerofactorr5[j];
+            d_zerofactorr6_sum += block_sum_zerofactorr6[j];
+            d_zerofactorr7_sum += block_sum_zerofactorr7[j];
+
+
 
         }
     
