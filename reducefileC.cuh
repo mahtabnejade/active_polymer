@@ -73,6 +73,7 @@ double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6, double *d_vxx_lim6, do
 double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, int zerofactorr7, int NN){
 
     tidd= blockIdx.x*blockDim.x + threadIdx.x;
+    //we should first make d_xx_lim1 and ... elements equal to 1000.000000
     if (tidd<NN){
 
         if(d_yy[tidd]>=0 && d_yy[tidd]<10){
@@ -83,18 +84,11 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_vyy_lim1[tidd]=d_vyy[tidd];
             d_vxx_lim1[tidd]=d_vxx[tidd];
             d_vzz_lim1[tidd]=d_vzz[tidd];
+            zerofactorr1[tid] = 1;
 
 
         }
-        else{
-                zerofactorr1[tid] = 1;
-                d_xx_lim1[tidd]=1000.0000000;
-                d_yy_lim1[tidd]=1000.0000000;
-                d_zz_lim1[tidd]=1000.0000000;
-                d_vyy_lim1[tidd]=d_vyy[tidd];
-                d_vxx_lim1[tidd]=d_vxx[tidd];
-                d_vzz_lim1[tidd]=d_vzz[tidd];
-            }
+      
 
         
         if(d_yy[tidd]>=30 && d_yy[tidd]<40){
@@ -105,18 +99,11 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_vyy_lim2[tidd]=d_vyy[tidd];
             d_vxx_lim2[tidd]=d_vxx[tidd];
             d_vzz_lim2[tidd]=d_vzz[tidd];
+            zerofactorr2[tid] = 1;
 
 
         }
-        else{
-                zerofactorr2[tid] = 1;
-                d_xx_lim2[tidd]=1000.0000000;
-                d_yy_lim2[tidd]=1000.0000000;
-                d_zz_lim2[tidd]=1000.0000000;
-                d_vyy_lim2[tidd]=d_vyy[tidd];
-                d_vxx_lim2[tidd]=d_vxx[tidd];
-                d_vzz_lim2[tidd]=d_vzz[tidd];
-            }
+        
 
         if(d_yy[tidd]>=20 && d_yy[tidd]<30){
 
@@ -126,18 +113,11 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_vyy_lim3[tidd]=d_vyy[tidd];
             d_vxx_lim3[tidd]=d_vxx[tidd];
             d_vzz_lim3[tidd]=d_vzz[tidd];
+            zerofactorr3[tid] = 1;
 
 
         }
-        else{
-                zerofactorr3[tid] = 1;
-                d_xx_lim3[tidd]=1000.0000000;
-                d_yy_lim3[tidd]=1000.0000000;
-                d_zz_lim3[tidd]=1000.0000000;
-                d_vyy_lim3[tidd]=d_vyy[tidd];
-                d_vxx_lim3[tidd]=d_vxx[tidd];
-                d_vzz_lim3[tidd]=d_vzz[tidd];
-            }
+
 
         if(d_yy[tidd]>=10 && d_yy[tidd]<20){
 
@@ -147,18 +127,11 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_vyy_lim4[tidd]=d_vyy[tidd];
             d_vxx_lim4[tidd]=d_vxx[tidd];
             d_vzz_lim4[tidd]=d_vzz[tidd];
+            zerofactorr4[tid] = 1;
 
 
         }
-        else{
-                zerofactorr4[tid] = 1;
-                d_xx_lim4[tidd]=1000.0000000;
-                d_yy_lim4[tidd]=1000.0000000;
-                d_zz_lim4[tidd]=1000.0000000;
-                d_vyy_lim4[tidd]=d_vyy[tidd];
-                d_vxx_lim4[tidd]=d_vxx[tidd];
-                d_vzz_lim4[tidd]=d_vzz[tidd];
-            }
+   
 
         if(d_yy[tidd]>=40 && d_yy[tidd]<50){
 
@@ -168,18 +141,11 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_vyy_lim5[tidd]=d_vyy[tidd];
             d_vxx_lim5[tidd]=d_vxx[tidd];
             d_vzz_lim5[tidd]=d_vzz[tidd];
+            zerofactorr5[tid] = 1;
 
 
         }
-        else{
-                zerofactorr5[tid] = 1;
-                d_xx_lim5[tidd]=1000.0000000;
-                d_yy_lim5[tidd]=1000.0000000;
-                d_zz_lim5[tidd]=1000.0000000;
-                d_vyy_lim5[tidd]=d_vyy[tidd];
-                d_vxx_lim5[tidd]=d_vxx[tidd];
-                d_vzz_lim5[tidd]=d_vzz[tidd];
-            }
+       
 
         if(d_yy[tidd]>=50 && d_yy[tidd]<60){
 
@@ -189,19 +155,11 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_vyy_lim6[tidd]=d_vyy[tidd];
             d_vxx_lim6[tidd]=d_vxx[tidd];
             d_vzz_lim6[tidd]=d_vzz[tidd];
+            zerofactorr6[tid] = 1;
 
 
         }
-        else{
-                zerofactorr6[tid] = 1;
-                d_xx_lim6[tidd]=1000.0000000;
-                d_yy_lim6[tidd]=1000.0000000;
-                d_zz_lim6[tidd]=1000.0000000;
-                d_vyy_lim6[tidd]=d_vyy[tidd];
-                d_vxx_lim6[tidd]=d_vxx[tidd];
-                d_vzz_lim6[tidd]=d_vzz[tidd];
-            
-            }
+
 
         if(d_yy[tidd]>=60 && d_yy[tidd]<70){
 
@@ -211,18 +169,11 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
             d_vyy_lim7[tidd]=d_vyy[tidd];
             d_vxx_lim7[tidd]=d_vxx[tidd];
             d_vzz_lim7[tidd]=d_vzz[tidd];
+            zerofactorr7[tid] = 1;
 
 
         }
-        else{
-                zerofactorr7[tid] = 1;
-                d_xx_lim7[tidd]=1000.0000000;
-                d_yy_lim7[tidd]=1000.0000000;
-                d_zz_lim7[tidd]=1000.0000000;
-                d_vyy_lim7[tidd]=d_vyy[tidd];
-                d_vxx_lim7[tidd]=d_vxx[tidd];
-                d_vzz_lim7[tidd]=d_vzz[tidd];
-            }
+ 
     }
 
 }
