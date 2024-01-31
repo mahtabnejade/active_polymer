@@ -91,7 +91,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
       
 
         
-        if(d_yy[tidd]>=30 && d_yy[tidd]<40){
+        else if(d_yy[tidd]>=30 && d_yy[tidd]<40){
 
             d_yy_lim2[tidd]=d_yy[tidd];
             d_xx_lim2[tidd]=d_xx[tidd];
@@ -105,7 +105,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
         }
         
 
-        if(d_yy[tidd]>=20 && d_yy[tidd]<30){
+        else if(d_yy[tidd]>=20 && d_yy[tidd]<30){
 
             d_yy_lim3[tidd]=d_yy[tidd];
             d_xx_lim3[tidd]=d_xx[tidd];
@@ -119,7 +119,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
         }
 
 
-        if(d_yy[tidd]>=10 && d_yy[tidd]<20){
+        else if(d_yy[tidd]>=10 && d_yy[tidd]<20){
 
             d_yy_lim4[tidd]=d_yy[tidd];
             d_xx_lim4[tidd]=d_xx[tidd];
@@ -133,7 +133,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
         }
    
 
-        if(d_yy[tidd]>=40 && d_yy[tidd]<50){
+        else if(d_yy[tidd]>=40 && d_yy[tidd]<50){
 
             d_yy_lim5[tidd]=d_yy[tidd];
             d_xx_lim5[tidd]=d_xx[tidd];
@@ -147,7 +147,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
         }
        
 
-        if(d_yy[tidd]>=50 && d_yy[tidd]<60){
+        else if(d_yy[tidd]>=50 && d_yy[tidd]<60){
 
             d_yy_lim6[tidd]=d_yy[tidd];
             d_xx_lim6[tidd]=d_xx[tidd];
@@ -161,7 +161,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, double *d_vxx_lim7, dou
         }
 
 
-        if(d_yy[tidd]>=60 && d_yy[tidd]<70){
+        else if(d_yy[tidd]>=60 && d_yy[tidd]<70){
 
             d_yy_lim7[tidd]=d_yy[tidd];
             d_xx_lim7[tidd]=d_xx[tidd];
@@ -233,6 +233,16 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
     int block_sum_zerofactorr[grid_size_];
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
+
+spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz, d_vxx,d_vyy, d_vzz,
+    d_xx_lim1, d_yy_lim1, d_zz_lim1, d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
+    d_xx_lim2,  d_yy_lim2, d_zz_lim2, d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
+    d_xx_lim3,  d_yy_lim3, d_zz_lim3, d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
+    d_xx_lim4,  d_yy_lim4, d_zz_lim4, d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
+    d_xx_lim5,  d_yy_lim5, d_zz_lim5, d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
+    d_xx_lim6,  d_yy_lim6, d_zz_lim6, d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
+    d_xx_lim7, d_yy_lim7, d_zz_lim7, d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7, NN);
+
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
 
@@ -285,6 +295,14 @@ __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *
     
     //printf("number of zeros is = %i\n", d_zerofactorr_sum);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
+
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum1);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum2);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum3);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum4);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum5);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum6);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum7);
 
 
 }
