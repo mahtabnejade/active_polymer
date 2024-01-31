@@ -63,7 +63,7 @@ int reducefile_vel() {
 
     return 0;
 }*/
-__global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy,
+__global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy, double *d_zz, 
 double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, 
 //double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
 int zerofactorr1,
@@ -178,9 +178,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
 
 }
 
-__global__ void velocity_limiting_kernel( double *d_zz, double *d_vxx, double *d_vyy, double *d_vzz,
+__global__ void velocity_limiting_kernel(double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z,
 double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
-int zerofactorr1,
+int zerofactor1,
 double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, 
 int zerofactor2,
 double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3, 
@@ -197,40 +197,50 @@ int zerofactor7, int NN){
         tidd= blockIdx.x*blockDim.x + threadIdx.x;
         if (tidd<NN){
 
-            if(d_yy[tidd]>=0 && d_yy[tidd]<10){
+            if(d_y[tidd]>=0 && d_y[tidd]<10){
                 d_vyy_lim1[tidd]=d_vyy[tidd];
                 d_vxx_lim1[tidd]=d_vxx[tidd];
                 d_vzz_lim1[tidd]=d_vzz[tidd];
+                zerofactor1[tidd]=1
             }
-            if(d_yy[tidd]>=10 && d_yy[tidd]<20){
+            else if(d_y[tidd]>=10 && d_y[tidd]<20){
                 d_vyy_lim2[tidd]=d_vyy[tidd];
                 d_vxx_lim2[tidd]=d_vxx[tidd];
                 d_vzz_lim2[tidd]=d_vzz[tidd];
+                zerofactor2[tidd]=1
+                
             }
-            if(d_yy[tidd]>=20 && d_yy[tidd]<30){
+            else if(d_y[tidd]>=20 && d_y[tidd]<30){
                 d_vyy_lim3[tidd]=d_vyy[tidd];
                 d_vxx_lim3[tidd]=d_vxx[tidd];
                 d_vzz_lim3[tidd]=d_vzz[tidd];
+                zerofactor3[tidd]=1
             }
-            if(d_yy[tidd]>=30 && d_yy[tidd]<40){
+            else if(d_y[tidd]>=30 && d_y[tidd]<40){
                 d_vyy_lim4[tidd]=d_vyy[tidd];
                 d_vxx_lim4[tidd]=d_vxx[tidd];
                 d_vzz_lim4[tidd]=d_vzz[tidd];
+                zerofactor4[tidd]=1
+
+
             }
-            if(d_yy[tidd]>=40 && d_yy[tidd]<50){
+            else if(d_y[tidd]>=40 && d_y[tidd]<50){
                 d_vyy_lim5[tidd]=d_vyy[tidd];
                 d_vxx_lim5[tidd]=d_vxx[tidd];
                 d_vzz_lim5[tidd]=d_vzz[tidd];
+                zerofactor5[tidd]=1
             }
-            if(d_yy[tidd]>=50 && d_yy[tidd]<60){
+            else if(d_y[tidd]>=50 && d_y[tidd]<60){
                 d_vyy_lim6[tidd]=d_vyy[tidd];
                 d_vxx_lim6[tidd]=d_vxx[tidd];
                 d_vzz_lim6[tidd]=d_vzz[tidd];
+                zerofactor6[tidd]=1
             }
-            if(d_yy[tidd]>=60 && d_yy[tidd]<70){
+            else if(d_y[tidd]>=60 && d_y[tidd]<70){
                 d_vyy_lim7[tidd]=d_vyy[tidd];
                 d_vxx_lim7[tidd]=d_vxx[tidd];
                 d_vzz_lim7[tidd]=d_vzz[tidd];
+                zerofactor7[tidd]=1
             }
         }
 
@@ -299,7 +309,7 @@ double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int zerofactorr7 ){
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
 
-    spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz, d_vxx,d_vyy, d_vzz,
+    spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz,
         d_xx_lim1, d_yy_lim1, d_zz_lim1, d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
         d_xx_lim2,  d_yy_lim2, d_zz_lim2, d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
         d_xx_lim3,  d_yy_lim3, d_zz_lim3, d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
@@ -308,12 +318,11 @@ double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int zerofactorr7 ){
         d_xx_lim6,  d_yy_lim6, d_zz_lim6, d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
         d_xx_lim7, d_yy_lim7, d_zz_lim7, d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7, NN);
 
+        gpuErrchk( cudaPeekAtLastError() );
+        gpuErrchk( cudaDeviceSynchronize() );
+
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
-
-    gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
-
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr1, zerofactorrsumblock1, N);
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr2, zerofactorrsumblock2, N);
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr3, zerofactorrsumblock3, N);
@@ -364,13 +373,13 @@ double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int zerofactorr7 ){
     //printf("number of zeros is = %i\n", d_zerofactorr_sum);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
 
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum1);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum2);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum3);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum4);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum5);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum6);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum7);
+    xyz_trj_mpcd(basename + "_1mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr1_sum);
+    xyz_trj_mpcd(basename + "_2mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr2_sum);
+    xyz_trj_mpcd(basename + "_3mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr3_sum);
+    xyz_trj_mpcd(basename + "_4mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr4_sum);
+    xyz_trj_mpcd(basename + "_5mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr5_sum);
+    xyz_trj_mpcd(basename + "_6mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr6_sum);
+    xyz_trj_mpcd(basename + "_7mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr7_sum);
 
 
 }
@@ -461,18 +470,81 @@ double *d_vxx_lim7,  double *d_vyy_lim7, double *d_vzz_lim7, int zerofactor7){
     int block_sum_zerofactor[grid_size_];
 
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
+
+    velocity_limiting_kernel<<<grid_size, blockSize>>>(d_vxx, d_vyy, d_vzz,d_x, d_y, d_z,
+        d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
+        d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
+        d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
+        d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
+        d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
+        d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
+        d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7, NN);
+
+
     //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
+
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor1, zerofactorsumblock1, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor2, zerofactorsumblock2, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor3, zerofactorsumblock3, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor4, zerofactorsumblock4, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor5, zerofactorsumblock5, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor6, zerofactorsumblock6, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor7, zerofactorsumblock7, N); 
+
     cudaMemcpy(block_sum_zerofactor, zerofactorsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+
+    cudaMemcpy(block_sum_zerofactor1, zerofactorsumblock1, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactor2, zerofactorsumblock2, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactor3, zerofactorsumblock3, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactor4, zerofactorsumblock4, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactor5, zerofactorsumblock5, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactor6, zerofactorsumblock6, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactor7, zerofactorsumblock7, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+
     int d_zerofactor_sum = 0;
+
+    int d_zerofactor1_sum = 0;
+    int d_zerofactor2_sum = 0;
+    int d_zerofactor3_sum = 0;
+    int d_zerofactor4_sum = 0;
+    int d_zerofactor5_sum = 0;
+    int d_zerofactor6_sum = 0;
+    int d_zerofactor7_sum = 0;
+
     for (int j = 0; j < grid_size; j++)
         {
             d_zerofactor_sum += block_sum_zerofactor[j];
+
+            d_zerofactor1_sum += block_sum_zerofactor1[j];
+            d_zerofactor2_sum += block_sum_zerofactor2[j];
+            d_zerofactor3_sum += block_sum_zerofactor3[j];
+            d_zerofactor4_sum += block_sum_zerofactor4[j];
+            d_zerofactor5_sum += block_sum_zerofactor5[j];
+            d_zerofactor6_sum += block_sum_zerofactor6[j];
+            d_zerofactor7_sum += block_sum_zerofactor7[j];
+
+
+
+
+
+
+
            
         }
 
     printf("zerofactor = %i", d_zerofactor_sum);
     xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
+
+    xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor1_sum);
+    xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor2_sum);
+    xyz_trj_mpcd(basename + "_3mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor3_sum);
+    xyz_trj_mpcd(basename + "_4mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor4_sum);
+    xyz_trj_mpcd(basename + "_5mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor5_sum);
+    xyz_trj_mpcd(basename + "_6mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor6_sum);
+    xyz_trj_mpcd(basename + "_7mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor7_sum);
+
+
 
 }
  
