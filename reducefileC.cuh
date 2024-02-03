@@ -300,7 +300,8 @@ double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3, int zerofactorr3,
 double *d_xx_lim4,  double *d_yy_lim4, double *d_zz_lim4, int zerofactorr4,
 double *d_xx_lim5,  double *d_yy_lim5, double *d_zz_lim5, int zerofactorr5,
 double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6, int zerofactorr6,
-double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int zerofactorr7 ){
+double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int zerofactorr7,
+int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,int *zerofactorrsumblock4,int *zerofactorrsumblock5,int *zerofactorrsumblock6,int *zerofactorrsumblock7 ){
 
 
     int NN = int(N/skipfactor);
@@ -332,6 +333,7 @@ double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int zerofactorr7 ){
 
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
+
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr1, zerofactorrsumblock1, N);
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr2, zerofactorrsumblock2, N);
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr3, zerofactorrsumblock3, N);
@@ -467,15 +469,16 @@ __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double
 __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double *d_vz,
     double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, 
     int N, int skipfactor,int grid_size, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor,
-    int *zerofactorsumblock, int *zerofactorsumblock1,int *zerofactorsumblock2,int *zerofactorsumblock3,int *zerofactorsumblock4,
-    int *zerofactorsumblock5, int *zerofactorsumblock6, int *zerofactorsumblock7, int blockSize_ , int grid_size_,
+    int *zerofactorsumblock, int blockSize_ , int grid_size_,
     double *d_vxx_lim1,  double *d_vyy_lim1, double *d_vzz_lim1, int zerofactor1,
     double *d_vxx_lim2,  double *d_vyy_lim2, double *d_vzz_lim2, int zerofactor2,
     double *d_vxx_lim3,  double *d_vyy_lim3, double *d_vzz_lim3, int zerofactor3,
     double *d_vxx_lim4,  double *d_vyy_lim4, double *d_vzz_lim4, int zerofactor4,
     double *d_vxx_lim5,  double *d_vyy_lim5, double *d_vzz_lim5, int zerofactor5,
     double *d_vxx_lim6,  double *d_vyy_lim6, double *d_vzz_lim6, int zerofactor6,
-    double *d_vxx_lim7,  double *d_vyy_lim7, double *d_vzz_lim7, int zerofactor7){
+    double *d_vxx_lim7,  double *d_vyy_lim7, double *d_vzz_lim7, int zerofactor7,
+    int *zerofactorsumblock1,int *zerofactorsumblock2,int *zerofactorsumblock3,int *zerofactorsumblock4,
+    int *zerofactorsumblock5, int *zerofactorsumblock6, int *zerofactorsumblock7){
 
 
     int NN = int(N/skipfactor);
