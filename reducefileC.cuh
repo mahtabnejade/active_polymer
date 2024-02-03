@@ -86,7 +86,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
 //double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, 
  int zerofactorr7, int NN){
 
-    tidd= blockIdx.x*blockDim.x + threadIdx.x;
+    int tidd= blockIdx.x*blockDim.x + threadIdx.x;
     //we should first make d_xx_lim1 and ... elements equal to 1000.000000
     if (tidd<NN){
 
@@ -96,7 +96,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_xx_lim1[tidd]=d_xx[tidd];
             d_zz_lim1[tidd]=d_zz[tidd];
             
-            zerofactorr1[tid] = 1;
+            zerofactorr1[tidd] = 1;
 
 
         }
@@ -109,7 +109,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_xx_lim2[tidd]=d_xx[tidd];
             d_zz_lim2[tidd]=d_zz[tidd];
           
-            zerofactorr2[tid] = 1;
+            zerofactorr2[tidd] = 1;
 
 
         }
@@ -121,7 +121,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_xx_lim3[tidd]=d_xx[tidd];
             d_zz_lim3[tidd]=d_zz[tidd];
       
-            zerofactorr3[tid] = 1;
+            zerofactorr3[tidd] = 1;
 
 
         }
@@ -133,7 +133,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_xx_lim4[tidd]=d_xx[tidd];
             d_zz_lim4[tidd]=d_zz[tidd];
 
-            zerofactorr4[tid] = 1;
+            zerofactorr4[tidd] = 1;
 
 
         }
@@ -145,7 +145,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_xx_lim5[tidd]=d_xx[tidd];
             d_zz_lim5[tidd]=d_zz[tidd];
        
-            zerofactorr5[tid] = 1;
+            zerofactorr5[tidd] = 1;
 
 
         }
@@ -157,7 +157,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_xx_lim6[tidd]=d_xx[tidd];
             d_zz_lim6[tidd]=d_zz[tidd];
         
-            zerofactorr6[tid] = 1;
+            zerofactorr6[tidd] = 1;
 
 
         }
@@ -169,7 +169,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_xx_lim7[tidd]=d_xx[tidd];
             d_zz_lim7[tidd]=d_zz[tidd];
           
-            zerofactorr7[tid] = 1;
+            zerofactorr7[tidd] = 1;
 
 
         }
@@ -194,33 +194,33 @@ int zerofactor6,
 double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, 
 int zerofactor7, int NN){
 
-        tidd= blockIdx.x*blockDim.x + threadIdx.x;
+        int tidd= blockIdx.x*blockDim.x + threadIdx.x;
         if (tidd<NN){
 
             if(d_y[tidd]>=0 && d_y[tidd]<10){
                 d_vyy_lim1[tidd]=d_vyy[tidd];
                 d_vxx_lim1[tidd]=d_vxx[tidd];
                 d_vzz_lim1[tidd]=d_vzz[tidd];
-                zerofactor1[tidd]=1
+                zerofactor1[tidd]=1;
             }
             else if(d_y[tidd]>=10 && d_y[tidd]<20){
                 d_vyy_lim2[tidd]=d_vyy[tidd];
                 d_vxx_lim2[tidd]=d_vxx[tidd];
                 d_vzz_lim2[tidd]=d_vzz[tidd];
-                zerofactor2[tidd]=1
+                zerofactor2[tidd]=1;
                 
             }
             else if(d_y[tidd]>=20 && d_y[tidd]<30){
                 d_vyy_lim3[tidd]=d_vyy[tidd];
                 d_vxx_lim3[tidd]=d_vxx[tidd];
                 d_vzz_lim3[tidd]=d_vzz[tidd];
-                zerofactor3[tidd]=1
+                zerofactor3[tidd]=1;
             }
             else if(d_y[tidd]>=30 && d_y[tidd]<40){
                 d_vyy_lim4[tidd]=d_vyy[tidd];
                 d_vxx_lim4[tidd]=d_vxx[tidd];
                 d_vzz_lim4[tidd]=d_vzz[tidd];
-                zerofactor4[tidd]=1
+                zerofactor4[tidd]=1;
 
 
             }
@@ -228,19 +228,19 @@ int zerofactor7, int NN){
                 d_vyy_lim5[tidd]=d_vyy[tidd];
                 d_vxx_lim5[tidd]=d_vxx[tidd];
                 d_vzz_lim5[tidd]=d_vzz[tidd];
-                zerofactor5[tidd]=1
+                zerofactor5[tidd]=1;
             }
             else if(d_y[tidd]>=50 && d_y[tidd]<60){
                 d_vyy_lim6[tidd]=d_vyy[tidd];
                 d_vxx_lim6[tidd]=d_vxx[tidd];
                 d_vzz_lim6[tidd]=d_vzz[tidd];
-                zerofactor6[tidd]=1
+                zerofactor6[tidd]=1;
             }
             else if(d_y[tidd]>=60 && d_y[tidd]<70){
                 d_vyy_lim7[tidd]=d_vyy[tidd];
                 d_vxx_lim7[tidd]=d_vxx[tidd];
                 d_vzz_lim7[tidd]=d_vzz[tidd];
-                zerofactor7[tidd]=1
+                zerofactor7[tidd]=1;
             }
         }
 
@@ -320,13 +320,13 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
 
     spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz,
-        d_xx_lim1, d_yy_lim1, d_zz_lim1, d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
-        d_xx_lim2,  d_yy_lim2, d_zz_lim2, d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
-        d_xx_lim3,  d_yy_lim3, d_zz_lim3, d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
-        d_xx_lim4,  d_yy_lim4, d_zz_lim4, d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
-        d_xx_lim5,  d_yy_lim5, d_zz_lim5, d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
-        d_xx_lim6,  d_yy_lim6, d_zz_lim6, d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
-        d_xx_lim7, d_yy_lim7, d_zz_lim7, d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7, NN);
+        d_xx_lim1, d_yy_lim1, d_zz_lim1, zerofactorr1,
+        d_xx_lim2,  d_yy_lim2, d_zz_lim2, zerofactorr2,
+        d_xx_lim3,  d_yy_lim3, d_zz_lim3, zerofactorr3,
+        d_xx_lim4,  d_yy_lim4, d_zz_lim4, zerofactorr4,
+        d_xx_lim5,  d_yy_lim5, d_zz_lim5, zerofactorr5,
+        d_xx_lim6,  d_yy_lim6, d_zz_lim6, zerofactorr6,
+        d_xx_lim7, d_yy_lim7, d_zz_lim7, zerofactorr7, NN);
 
         gpuErrchk( cudaPeekAtLastError() );
         gpuErrchk( cudaDeviceSynchronize() );
