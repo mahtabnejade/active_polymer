@@ -135,9 +135,21 @@ int main(int argc, const char* argv[])
 
     //Allocate device memory for reduced mpcd velocity files:
     double *d_vxx; double *d_vyy; double *d_vzz;
+    double *d_vxx_lim1; double *d_vyy_lim1; double *d_vzz_lim1;
+    double *d_vxx_lim2; double *d_vyy_lim2; double *d_vzz_lim2;
+    double *d_vxx_lim3; double *d_vyy_lim3; double *d_vzz_lim3;
+    double *d_vxx_lim4; double *d_vyy_lim4; double *d_vzz_lim4;
+    double *d_vxx_lim5; double *d_vyy_lim5; double *d_vzz_lim5;
+    double *d_vxx_lim6; double *d_vyy_lim6; double *d_vzz_lim6;
+    double *d_vxx_lim7; double *d_vyy_lim7; double *d_vzz_lim7;
     cudaMalloc((void**)&d_vxx,sizeof(double)*NN); cudaMalloc((void**)&d_vyy,sizeof(double)*NN); cudaMalloc((void**)&d_vzz,sizeof(double)*NN);
-
-
+    cudaMalloc((void**)&d_vxx_lim1,sizeof(double)*NN); cudaMalloc((void**)&d_vyy_lim1,sizeof(double)*NN); cudaMalloc((void**)&d_vzz_lim1,sizeof(double)*NN);
+    cudaMalloc((void**)&d_vxx_lim2,sizeof(double)*NN); cudaMalloc((void**)&d_vyy_lim2,sizeof(double)*NN); cudaMalloc((void**)&d_vzz_lim2,sizeof(double)*NN);
+    cudaMalloc((void**)&d_vxx_lim3,sizeof(double)*NN); cudaMalloc((void**)&d_vyy_lim3,sizeof(double)*NN); cudaMalloc((void**)&d_vzz_lim3,sizeof(double)*NN);
+    cudaMalloc((void**)&d_vxx_lim4,sizeof(double)*NN); cudaMalloc((void**)&d_vyy_lim4,sizeof(double)*NN); cudaMalloc((void**)&d_vzz_lim4,sizeof(double)*NN);
+    cudaMalloc((void**)&d_vxx_lim5,sizeof(double)*NN); cudaMalloc((void**)&d_vyy_lim5,sizeof(double)*NN); cudaMalloc((void**)&d_vzz_lim5,sizeof(double)*NN);
+    cudaMalloc((void**)&d_vxx_lim6,sizeof(double)*NN); cudaMalloc((void**)&d_vyy_lim6,sizeof(double)*NN); cudaMalloc((void**)&d_vzz_lim6,sizeof(double)*NN);
+    cudaMalloc((void**)&d_vxx_lim7,sizeof(double)*NN); cudaMalloc((void**)&d_vyy_lim7,sizeof(double)*NN); cudaMalloc((void**)&d_vzz_lim7,sizeof(double)*NN);
     //int decimalPlacess = 3; // Number of decimal places to keep
     double *roundedNumber_vx; double *roundedNumber_vy; double *roundedNumber_vz;
     cudaMalloc((void**)&roundedNumber_vx, sizeof(double) *N);
