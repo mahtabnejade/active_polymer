@@ -92,13 +92,13 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     for (int i =0 ; i< Nmd ; i++)
     {
         if (h_X[i] == 1000.0000000 && h_Y[i] == 1000.0000000 && h_Z[i] == 1000.0000000) {
-            printf("zerooo\n");
+            //printf("zerooo\n");
         }
 
         else {
             traj<<"C      "<<h_X[i]<<"      "<<h_Y[i]<<"      "<<h_Z[i]<<"\n";
             counter = counter +1;
-            printf("nonzero\n");
+            //printf("nonzero\n");
         }
     }
     //printf("counter = %i\n", counter);
