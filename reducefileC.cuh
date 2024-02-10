@@ -410,6 +410,15 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
 
 
         }
+
+    d_zerofactorr1_sum = NN-d_zerofactorr1_sum; 
+    d_zerofactorr2_sum = NN-d_zerofactorr2_sum;
+    d_zerofactorr3_sum = NN-d_zerofactorr3_sum;
+    d_zerofactorr4_sum = NN-d_zerofactorr4_sum;
+    d_zerofactorr5_sum = NN-d_zerofactorr5_sum;
+    d_zerofactorr6_sum = NN-d_zerofactorr6_sum;
+    d_zerofactorr7_sum = NN-d_zerofactorr7_sum;
+    
     
     //printf("number of zeros is = %i\n", d_zerofactorr_sum);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
@@ -614,6 +623,16 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
         }
 
     printf("zerofactor = %i", d_zerofactor_sum);
+
+    d_zerofactor1_sum = NN-d_zerofactor1_sum;
+    d_zerofactor2_sum = NN-d_zerofactor2_sum;
+    d_zerofactor3_sum = NN-d_zerofactor3_sum;
+    d_zerofactor4_sum = NN-d_zerofactor4_sum;
+    d_zerofactor5_sum = NN-d_zerofactor5_sum;
+    d_zerofactor6_sum = NN-d_zerofactor6_sum;
+    d_zerofactor7_sum = NN-d_zerofactor7_sum;
+
+
     xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
     xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor1_sum);
