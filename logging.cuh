@@ -101,7 +101,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
             //printf("nonzero\n");
         }
     }
-    //printf("counter = %i\n", counter);
+    printf("counter = %i\n", counter);
 
 }
 
