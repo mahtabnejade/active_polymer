@@ -216,7 +216,7 @@ int *zerofactor7, int NN){
                 d_vzz_lim3[tidd]=d_vzz[tidd];
                 zerofactor3[tidd]=1;
             }
-            else if(d_y[tidd]>=30 && d_y[tidd]<40){
+            else if(d_y[tidd]>=-10 && d_y[tidd]<0){
                 d_vyy_lim4[tidd]=d_vyy[tidd];
                 d_vxx_lim4[tidd]=d_vxx[tidd];
                 d_vzz_lim4[tidd]=d_vzz[tidd];
@@ -224,19 +224,19 @@ int *zerofactor7, int NN){
 
 
             }
-            else if(d_y[tidd]>=40 && d_y[tidd]<50){
+            else if(d_y[tidd]>=-20 && d_y[tidd]<-10){
                 d_vyy_lim5[tidd]=d_vyy[tidd];
                 d_vxx_lim5[tidd]=d_vxx[tidd];
                 d_vzz_lim5[tidd]=d_vzz[tidd];
                 zerofactor5[tidd]=1;
             }
-            else if(d_y[tidd]>=50 && d_y[tidd]<60){
+            else if(d_y[tidd]>=-30 && d_y[tidd]<-20){
                 d_vyy_lim6[tidd]=d_vyy[tidd];
                 d_vxx_lim6[tidd]=d_vxx[tidd];
                 d_vzz_lim6[tidd]=d_vzz[tidd];
                 zerofactor6[tidd]=1;
             }
-            else if(d_y[tidd]>=60 && d_y[tidd]<70){
+            else {
                 d_vyy_lim7[tidd]=d_vyy[tidd];
                 d_vxx_lim7[tidd]=d_vxx[tidd];
                 d_vzz_lim7[tidd]=d_vzz[tidd];
