@@ -325,29 +325,29 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
 
-    initializeArray<<<grid_size, blockSize>>>(d_xx_lim1, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_xx_lim2, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_xx_lim3, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_xx_lim4, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_xx_lim5, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_xx_lim6, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_xx_lim7, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_xx_lim1, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_xx_lim2, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_xx_lim3, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_xx_lim4, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_xx_lim5, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_xx_lim6, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_xx_lim7, NN, 1000.000000);
 
-    initializeArray<<<grid_size, blockSize>>>(d_yy_lim1, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_yy_lim2, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_yy_lim3, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_yy_lim4, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_yy_lim5, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_yy_lim6, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_yy_lim7, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim1, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim2, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim3, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim4, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim5, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim6, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim7, NN, 1000.000000);
 
-    initializeArray<<<grid_size, blockSize>>>(d_zz_lim1, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_zz_lim2, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_zz_lim3, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_zz_lim4, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_zz_lim5, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_zz_lim6, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_zz_lim7, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim1, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim2, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim3, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim4, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim5, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim6, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim7, NN, 1000.000000);
 
     spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz,
         d_xx_lim1, d_yy_lim1, d_zz_lim1, zerofactorr1,
@@ -535,29 +535,29 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
 
 
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim1, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim2, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim3, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim4, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim5, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim6, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim7, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim1, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim2, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim3, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim4, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim5, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim6, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim7, NN, 1000.000000);
 
-    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim1, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim2, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim3, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim4, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim5, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim6, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim7, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim1, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim2, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim3, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim4, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim5, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim6, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vyy_lim7, NN, 1000.000000);
 
-    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim1, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim2, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim3, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim4, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim5, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim6, NN, 1000.000);
-    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim7, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim1, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim2, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim3, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim4, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim5, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim6, NN, 1000.000000);
+    initializeArray<<<grid_size, blockSize>>>(d_vzz_lim7, NN, 1000.000000);
 
 
     velocity_limiting_kernel<<<grid_size, blockSize>>>(d_vxx, d_vyy, d_vzz,d_x, d_y, d_z,
