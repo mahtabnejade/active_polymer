@@ -108,7 +108,7 @@ __host__ void CM_system(double *mdX, double *mdY, double *mdZ, double *dX, doubl
         }
 
         cudaDeviceSynchronize();
-        printf("Xtot = %lf, Ytot = %lf, Ztot = %lf\n", *dX_tot, *dY_tot, *dZ_tot); 
+        //printf("Xtot = %lf, Ytot = %lf, Ztot = %lf\n", *dX_tot, *dY_tot, *dZ_tot); 
 
         double XCM , YCM, ZCM;
         XCM=0.0; YCM=0.0; ZCM=0.0;
