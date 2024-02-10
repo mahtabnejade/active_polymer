@@ -103,7 +103,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
       
 
         
-        else if(d_yy[tidd]>=30 && d_yy[tidd]<40){
+        else if(d_yy[tidd]>=10 && d_yy[tidd]<20){
 
             d_yy_lim2[tidd]=d_yy[tidd];
             d_xx_lim2[tidd]=d_xx[tidd];
@@ -127,7 +127,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
         }
 
 
-        else if(d_yy[tidd]>=10 && d_yy[tidd]<20){
+        else if(d_yy[tidd]>=-10 && d_yy[tidd]<0){
 
             d_yy_lim4[tidd]=d_yy[tidd];
             d_xx_lim4[tidd]=d_xx[tidd];
@@ -139,7 +139,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
         }
    
 
-        else if(d_yy[tidd]>=40 && d_yy[tidd]<50){
+        else if(d_yy[tidd]>=-20 && d_yy[tidd]<-10){
 
             d_yy_lim5[tidd]=d_yy[tidd];
             d_xx_lim5[tidd]=d_xx[tidd];
@@ -151,7 +151,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
         }
        
 
-        else if(d_yy[tidd]>=50 && d_yy[tidd]<60){
+        else if(d_yy[tidd]>=-30 && d_yy[tidd]<-20){
 
             d_yy_lim6[tidd]=d_yy[tidd];
             d_xx_lim6[tidd]=d_xx[tidd];
@@ -163,7 +163,7 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
         }
 
 
-        else if(d_yy[tidd]>=60 && d_yy[tidd]<70){
+        else {
 
             d_yy_lim7[tidd]=d_yy[tidd];
             d_xx_lim7[tidd]=d_xx[tidd];
