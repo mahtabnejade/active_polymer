@@ -333,6 +333,22 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
     initializeArray<<<grid_size, blockSize>>>(d_xx_lim6, NN, 1000.000);
     initializeArray<<<grid_size, blockSize>>>(d_xx_lim7, NN, 1000.000);
 
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim1, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim2, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim3, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim4, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim5, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim6, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_yy_lim7, NN, 1000.000);
+
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim1, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim2, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim3, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim4, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim5, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim6, NN, 1000.000);
+    initializeArray<<<grid_size, blockSize>>>(d_zz_lim7, NN, 1000.000);
+
     spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz,
         d_xx_lim1, d_yy_lim1, d_zz_lim1, zerofactorr1,
         d_xx_lim2,  d_yy_lim2, d_zz_lim2, zerofactorr2,
