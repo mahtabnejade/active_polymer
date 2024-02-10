@@ -552,13 +552,13 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
 
 
     velocity_limiting_kernel<<<grid_size, blockSize>>>(d_vxx, d_vyy, d_vzz,d_x, d_y, d_z,
-        d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactorr1,
-        d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactorr2,
-        d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactorr3,
-        d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactorr4,
-        d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactorr5,
-        d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactorr6,
-        d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactorr7, NN);
+        d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactor1,
+        d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactor2,
+        d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactor3,
+        d_vxx_lim4, d_vyy_lim4, d_vzz_lim4,  zerofactor4,
+        d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactor5,
+        d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactor6,
+        d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactor7, NN);
 
 
     //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
