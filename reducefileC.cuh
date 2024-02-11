@@ -324,7 +324,9 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
 
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
-
+     gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+    
     initializeArray<<<grid_size, blockSize>>>(d_xx_lim1, NN, 1000.000000);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
