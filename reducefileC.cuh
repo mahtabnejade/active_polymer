@@ -322,6 +322,34 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
     int block_sum_zerofactorr6[grid_size_];
     int block_sum_zerofactorr7[grid_size_];
 
+    initializeArray<<<grid_size,blockSize>>>(zerofactoRr1, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+    initializeArray<<<grid_size,blockSize>>>(zerofactorr2, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactorr3, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactorr4, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactorr5, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactorr6, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactorr7, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
      gpuErrchk( cudaPeekAtLastError() );
@@ -588,6 +616,35 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     int block_sum_zerofactor5[grid_size_];
     int block_sum_zerofactor6[grid_size_];
     int block_sum_zerofactor7[grid_size_];
+    
+    initializeArray<<<grid_size,blockSize>>>(zerofactor1, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+    initializeArray<<<grid_size,blockSize>>>(zerofactor2, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactor3, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactor4, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactor5, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactor6, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+      initializeArray<<<grid_size,blockSize>>>(zerofactor7, NN, 0);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
 
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
      gpuErrchk( cudaPeekAtLastError() );
