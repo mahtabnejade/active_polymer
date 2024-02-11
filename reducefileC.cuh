@@ -63,27 +63,27 @@ int reducefile_vel() {
 
     return 0;
 }*/
-__global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy, double *d_zz, 
+__global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy, double *d_zz, double *d_vxx, double *d_vyy, double *d_vzz,
 double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, 
-//double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
+double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
 int *zerofactorr1,
 double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2,
-//double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, 
+double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, 
  int *zerofactorr2,
 double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3,
-//double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3, 
+double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3, 
  int *zerofactorr3,
 double *d_xx_lim4,  double *d_yy_lim4, double *d_zz_lim4,
-//double *d_vxx_lim4, double *d_vyy_lim4, double *d_vzz_lim4, 
+double *d_vxx_lim4, double *d_vyy_lim4, double *d_vzz_lim4, 
  int *zerofactorr4,
 double *d_xx_lim5,  double *d_yy_lim5, double *d_zz_lim5,
-//double *d_vxx_lim5, double *d_vyy_lim5, double *d_vzz_lim5, 
+double *d_vxx_lim5, double *d_vyy_lim5, double *d_vzz_lim5, 
  int *zerofactorr5,
 double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6,
-//double *d_vxx_lim6, double *d_vyy_lim6, double *d_vzz_lim6, 
+double *d_vxx_lim6, double *d_vyy_lim6, double *d_vzz_lim6, 
  int *zerofactorr6,
 double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
-//double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, 
+double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, 
  int *zerofactorr7, int NN){
 
     int tidd= blockIdx.x*blockDim.x + threadIdx.x;
@@ -95,6 +95,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_yy_lim1[tidd]=d_yy[tidd];
             d_xx_lim1[tidd]=d_xx[tidd];
             d_zz_lim1[tidd]=d_zz[tidd];
+            d_vyy_lim1[tidd]=d_vyy[tidd];
+            d_vxx_lim1[tidd]=d_vxx[tidd];
+            d_vzz_lim1[tidd]=d_vzz[tidd];
             
             zerofactorr1[tidd] = 1;
 
@@ -108,6 +111,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_yy_lim2[tidd]=d_yy[tidd];
             d_xx_lim2[tidd]=d_xx[tidd];
             d_zz_lim2[tidd]=d_zz[tidd];
+            d_vyy_lim2[tidd]=d_vyy[tidd];
+            d_vxx_lim2[tidd]=d_vxx[tidd];
+            d_vzz_lim2[tidd]=d_vzz[tidd];
           
             zerofactorr2[tidd] = 1;
 
@@ -120,6 +126,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_yy_lim3[tidd]=d_yy[tidd];
             d_xx_lim3[tidd]=d_xx[tidd];
             d_zz_lim3[tidd]=d_zz[tidd];
+            d_vyy_lim3[tidd]=d_vyy[tidd];
+            d_vxx_lim3[tidd]=d_vxx[tidd];
+            d_vzz_lim3[tidd]=d_vzz[tidd];
       
             zerofactorr3[tidd] = 1;
 
@@ -132,6 +141,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_yy_lim4[tidd]=d_yy[tidd];
             d_xx_lim4[tidd]=d_xx[tidd];
             d_zz_lim4[tidd]=d_zz[tidd];
+            d_vyy_lim4[tidd]=d_vyy[tidd];
+            d_vxx_lim4[tidd]=d_vxx[tidd];
+            d_vzz_lim4[tidd]=d_vzz[tidd];
 
             zerofactorr4[tidd] = 1;
 
@@ -144,6 +156,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_yy_lim5[tidd]=d_yy[tidd];
             d_xx_lim5[tidd]=d_xx[tidd];
             d_zz_lim5[tidd]=d_zz[tidd];
+            d_vyy_lim5[tidd]=d_vyy[tidd];
+            d_vxx_lim5[tidd]=d_vxx[tidd];
+            d_vzz_lim5[tidd]=d_vzz[tidd];
        
             zerofactorr5[tidd] = 1;
 
@@ -156,6 +171,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_yy_lim6[tidd]=d_yy[tidd];
             d_xx_lim6[tidd]=d_xx[tidd];
             d_zz_lim6[tidd]=d_zz[tidd];
+            d_vyy_lim6[tidd]=d_vyy[tidd];
+            d_vxx_lim6[tidd]=d_vxx[tidd];
+            d_vzz_lim6[tidd]=d_vzz[tidd];
         
             zerofactorr6[tidd] = 1;
 
@@ -168,6 +186,9 @@ double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
             d_yy_lim7[tidd]=d_yy[tidd];
             d_xx_lim7[tidd]=d_xx[tidd];
             d_zz_lim7[tidd]=d_zz[tidd];
+            d_vyy_lim7[tidd]=d_vyy[tidd];
+            d_vxx_lim7[tidd]=d_vxx[tidd];
+            d_vzz_lim7[tidd]=d_vzz[tidd];
           
             zerofactorr7[tidd] = 1;
 
@@ -314,6 +335,13 @@ double *d_xx_lim4,  double *d_yy_lim4, double *d_zz_lim4, int *zerofactorr4,
 double *d_xx_lim5,  double *d_yy_lim5, double *d_zz_lim5, int *zerofactorr5,
 double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6, int *zerofactorr6,
 double *d_xx_lim7,  double *d_yy_lim7, double *d_zz_lim7, int *zerofactorr7,
+double *d_vxx_lim1,  double *d_vyy_lim1, double *d_vzz_lim1,
+double *d_vxx_lim2,  double *d_vyy_lim2, double *d_vzz_lim2, 
+double *d_vxx_lim3,  double *d_vyy_lim3, double *d_vzz_lim3, 
+double *d_vxx_lim4,  double *d_vyy_lim4, double *d_vzz_lim4,
+double *d_vxx_lim5,  double *d_vyy_lim5, double *d_vzz_lim5, 
+double *d_vxx_lim6,  double *d_vyy_lim6, double *d_vzz_lim6, 
+double *d_vxx_lim7,  double *d_vyy_lim7, double *d_vzz_lim7,
 int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,int *zerofactorrsumblock4,int *zerofactorrsumblock5,int *zerofactorrsumblock6,int *zerofactorrsumblock7 ){
 
 
@@ -428,14 +456,21 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-    spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz,
+    spatial_limiting_kernel<<<grid_size, blockSize>>>(d_xx, d_yy, d_zz, d_vxx, d_vyy, d_vzz,
         d_xx_lim1, d_yy_lim1, d_zz_lim1, zerofactorr1,
         d_xx_lim2,  d_yy_lim2, d_zz_lim2, zerofactorr2,
         d_xx_lim3,  d_yy_lim3, d_zz_lim3, zerofactorr3,
         d_xx_lim4,  d_yy_lim4, d_zz_lim4, zerofactorr4,
         d_xx_lim5,  d_yy_lim5, d_zz_lim5, zerofactorr5,
         d_xx_lim6,  d_yy_lim6, d_zz_lim6, zerofactorr6,
-        d_xx_lim7, d_yy_lim7, d_zz_lim7, zerofactorr7, NN);
+        d_xx_lim7, d_yy_lim7, d_zz_lim7, zerofactorr7,
+        d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, 
+        d_vxx_lim2, d_vyy_lim2, d_vzz_lim2, 
+        d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, 
+        d_vxx_lim4, d_vyy_lim4, d_vzz_lim4, 
+        d_vxx_lim5, d_vyy_lim5, d_vzz_lim5,
+        d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  
+        d_vxx_lim7, d_vyy_lim7, d_vzz_lim7, NN);
 
         gpuErrchk( cudaPeekAtLastError() );
         gpuErrchk( cudaDeviceSynchronize() );
