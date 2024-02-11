@@ -64,27 +64,20 @@ int reducefile_vel() {
     return 0;
 }*/
 __global__ void spatial_limiting_kernel(double *d_xx,  double *d_yy, double *d_zz, double *d_vxx, double *d_vyy, double *d_vzz,
-double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, 
-double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
-int *zerofactorr1,
-double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2,
-double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2, 
- int *zerofactorr2,
-double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3,
-double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3, 
- int *zerofactorr3,
-double *d_xx_lim4,  double *d_yy_lim4, double *d_zz_lim4,
-double *d_vxx_lim4, double *d_vyy_lim4, double *d_vzz_lim4, 
- int *zerofactorr4,
-double *d_xx_lim5,  double *d_yy_lim5, double *d_zz_lim5,
-double *d_vxx_lim5, double *d_vyy_lim5, double *d_vzz_lim5, 
- int *zerofactorr5,
-double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6,
-double *d_vxx_lim6, double *d_vyy_lim6, double *d_vzz_lim6, 
- int *zerofactorr6,
-double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7,
-double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, 
- int *zerofactorr7, int NN){
+double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, int *zerofactorr1,
+double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2, int *zerofactorr2,
+double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3, int *zerofactorr3,
+double *d_xx_lim4,  double *d_yy_lim4, double *d_zz_lim4, int *zerofactorr4,
+double *d_xx_lim5,  double *d_yy_lim5, double *d_zz_lim5, int *zerofactorr5,
+double *d_xx_lim6,  double *d_yy_lim6, double *d_zz_lim6, int *zerofactorr6,
+double *d_xx_lim7, double *d_yy_lim7, double *d_zz_lim7, int *zerofactorr7, 
+ double *d_vxx_lim1, double *d_vyy_lim1, double *d_vzz_lim1, 
+ double *d_vxx_lim2, double *d_vyy_lim2, double *d_vzz_lim2,
+ double *d_vxx_lim3, double *d_vyy_lim3, double *d_vzz_lim3,
+ double *d_vxx_lim4, double *d_vyy_lim4, double *d_vzz_lim4,
+ double *d_vxx_lim5, double *d_vyy_lim5, double *d_vzz_lim5,
+ double *d_vxx_lim6, double *d_vyy_lim6, double *d_vzz_lim6,
+ double *d_vxx_lim7, double *d_vyy_lim7, double *d_vzz_lim7, int NN){
 
     int tidd= blockIdx.x*blockDim.x + threadIdx.x;
     //we should first make d_xx_lim1 and ... elements equal to 1000.000000
