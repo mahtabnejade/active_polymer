@@ -444,6 +444,13 @@ int main(int argc, const char* argv[])
         d_xx_lim5, d_yy_lim5, d_zz_lim5, zerofactorr5,
         d_xx_lim6, d_yy_lim6, d_zz_lim6, zerofactorr6,
         d_xx_lim7, d_yy_lim7, d_zz_lim7, zerofactorr7,
+        d_vxx_lim1, d_vyy_lim1, d_vzz_lim1,
+        d_vxx_lim2, d_vyy_lim2, d_vzz_lim2, 
+        d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, 
+        d_vxx_lim4, d_vyy_lim4, d_vzz_lim4, 
+        d_vxx_lim5, d_vyy_lim5, d_vzz_lim5,
+        d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  
+        d_vxx_lim7, d_vyy_lim7, d_vzz_lim7, 
         zerofactorrsumblock1,zerofactorrsumblock2,zerofactorrsumblock3,zerofactorrsumblock4,zerofactorrsumblock5,zerofactorrsumblock6,zerofactorrsumblock7);
 
  
@@ -517,6 +524,13 @@ int main(int argc, const char* argv[])
                 d_xx_lim5,  d_yy_lim5,  d_zz_lim5, zerofactorr5,
                 d_xx_lim6,  d_yy_lim6,  d_zz_lim6, zerofactorr6,
                 d_xx_lim7,  d_yy_lim7,  d_zz_lim7, zerofactorr7,
+                d_vxx_lim1, d_vyy_lim1, d_vzz_lim1,
+                d_vxx_lim2, d_vyy_lim2, d_vzz_lim2, 
+                d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, 
+                d_vxx_lim4, d_vyy_lim4, d_vzz_lim4, 
+                d_vxx_lim5, d_vyy_lim5, d_vzz_lim5,
+                d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  
+                d_vxx_lim7, d_vyy_lim7, d_vzz_lim7, 
                 zerofactorrsumblock1,zerofactorrsumblock2,zerofactorrsumblock3,zerofactorrsumblock4,zerofactorrsumblock5,zerofactorrsumblock6,zerofactorrsumblock7);
             reducevel(basename, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, grid_size,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor, zerofactorsumblock, blockSize_, grid_size_,
                 d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactor1,
