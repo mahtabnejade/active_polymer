@@ -254,6 +254,13 @@ __global__ void initializeArray(double *array, int size, double value) {
     }
 }
 
+__global__ void initializeArrayint(int *array, int size,int value){
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (index < size) {
+        array[index] = value;
+    }
+}
+
 __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, double *d_yy, double *d_zz, int N, int skipfactor, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr){
 
     int tid = blockIdx.x*blockDim.x + threadIdx.x;
@@ -322,31 +329,31 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
     int block_sum_zerofactorr6[grid_size_];
     int block_sum_zerofactorr7[grid_size_];
 
-    initializeArray<<<grid_size,blockSize>>>(zerofactoRr1, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactoRr1, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-    initializeArray<<<grid_size,blockSize>>>(zerofactorr2, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactorr2, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactorr3, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactorr3, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactorr4, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactorr4, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactorr5, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactorr5, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactorr6, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactorr6, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactorr7, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactorr7, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
@@ -617,31 +624,31 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     int block_sum_zerofactor6[grid_size_];
     int block_sum_zerofactor7[grid_size_];
     
-    initializeArray<<<grid_size,blockSize>>>(zerofactor1, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactor1, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-    initializeArray<<<grid_size,blockSize>>>(zerofactor2, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactor2, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactor3, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactor3, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactor4, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactor4, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactor5, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactor5, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactor6, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactor6, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-      initializeArray<<<grid_size,blockSize>>>(zerofactor7, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactor7, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
