@@ -329,7 +329,7 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
     int block_sum_zerofactorr6[grid_size_];
     int block_sum_zerofactorr7[grid_size_];
 
-    initializeArrayint<<<grid_size,blockSize>>>(zerofactoRr1, NN, 0);
+    initializeArrayint<<<grid_size,blockSize>>>(zerofactorr1, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
