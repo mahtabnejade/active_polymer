@@ -94,7 +94,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     {
         if (h_X[i] == 1000.0000000 && h_Y[i] == 1000.0000000 && h_Z[i] == 1000.0000000) {
             //printf("zerooo\n");
-            zerocunter = zerocounter + 1;
+            zerocounter = zerocounter + 1;
         }
 
         else if (h_X[i] != 1000.0000000 || h_Y[i] != 1000.0000000 || h_Z[i] != 1000.0000000){
