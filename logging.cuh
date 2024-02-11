@@ -87,12 +87,14 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     cudaMemcpy(h_Z, d_Z, sizeof(double) * Nmd , cudaMemcpyDeviceToHost);
     printf("N_nonzero=%i\n", N_nonzero);
     int counter = 0;
+    int zerocounter = 0;
     traj<<N_nonzero<<"\n\n";
     //traj<<Nmd<<"\n\n";
     for (int i =0 ; i< Nmd ; i++)
     {
         if (h_X[i] == 1000.0000000 && h_Y[i] == 1000.0000000 && h_Z[i] == 1000.0000000) {
             //printf("zerooo\n");
+            zerocunter = zerocounter + 1;
         }
 
         else if (h_X[i] != 1000.0000000 || h_Y[i] != 1000.0000000 || h_Z[i] != 1000.0000000){
@@ -102,6 +104,8 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
         }
     }
     printf("counter = %i\n", counter);
+    printf("zerocounter = %i\n", zerocounter);
+    
 
 }
 
