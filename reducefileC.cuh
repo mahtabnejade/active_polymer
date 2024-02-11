@@ -406,29 +406,29 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
         gpuErrchk( cudaDeviceSynchronize() );
 
     //in this line we should sum over all zerofactorr elements to calculate zerofactorr_sum
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
+    //intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr, zerofactorrsumblock, N);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr1, zerofactorrsumblock1, NN);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr2, zerofactorrsumblock2, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr2, zerofactorrsumblock2, NN);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr3, zerofactorrsumblock3, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr3, zerofactorrsumblock3, NN);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr4, zerofactorrsumblock4, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr4, zerofactorrsumblock4, NN);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr5, zerofactorrsumblock5, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr5, zerofactorrsumblock5, NN);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr6, zerofactorrsumblock6, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr6, zerofactorrsumblock6, NN);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr7, zerofactorrsumblock7, N);
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactorr7, zerofactorrsumblock7, NN);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
