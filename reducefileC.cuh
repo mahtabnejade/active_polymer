@@ -761,7 +761,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-    initializeArray<<<grid_size, blockSize>>>(d_vxx_lim1, NN, 1000.000000);
+    /*initializeArray<<<grid_size, blockSize>>>(d_vxx_lim1, NN, 1000.000000);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
     initializeArray<<<grid_size, blockSize>>>(d_vxx_lim2, NN, 1000.000000);
@@ -825,10 +825,10 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     gpuErrchk( cudaDeviceSynchronize() );
     initializeArray<<<grid_size, blockSize>>>(d_vzz_lim7, NN, 1000.000000);
      gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
+    gpuErrchk( cudaDeviceSynchronize() );*/
 
 
-    velocity_limiting_kernel<<<grid_size, blockSize>>>(d_vxx, d_vyy, d_vzz,d_x, d_y, d_z,
+    /*velocity_limiting_kernel<<<grid_size, blockSize>>>(d_vxx, d_vyy, d_vzz,d_x, d_y, d_z,
         d_vxx_lim1, d_vyy_lim1, d_vzz_lim1, zerofactor1,
         d_vxx_lim2, d_vyy_lim2, d_vzz_lim2,  zerofactor2,
         d_vxx_lim3, d_vyy_lim3, d_vzz_lim3, zerofactor3,
@@ -836,15 +836,15 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
         d_vxx_lim5, d_vyy_lim5, d_vzz_lim5, zerofactor5,
         d_vxx_lim6, d_vyy_lim6, d_vzz_lim6,  zerofactor6,
         d_vxx_lim7, d_vyy_lim7, d_vzz_lim7,  zerofactor7, NN);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );*/
 
-     gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
     //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
     //intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
-     gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
+    // gpuErrchk( cudaPeekAtLastError() );
+    //gpuErrchk( cudaDeviceSynchronize() );
 
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor1, zerofactorsumblock1, NN);
+    /*intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor1, zerofactorsumblock1, NN);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor2, zerofactorsumblock2, NN);
@@ -915,10 +915,10 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     d_zerofactor4_sum = NN-d_zerofactor4_sum;
     d_zerofactor5_sum = NN-d_zerofactor5_sum;
     d_zerofactor6_sum = NN-d_zerofactor6_sum;
-    d_zerofactor7_sum = NN-d_zerofactor7_sum;
+    d_zerofactor7_sum = NN-d_zerofactor7_sum;*/
 
 
-    xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
+    //xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
     /*xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactor1_sum);
     xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactor2_sum);
