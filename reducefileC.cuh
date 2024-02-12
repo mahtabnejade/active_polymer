@@ -313,6 +313,8 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
             //    d_yy[tidd]=1000.0000000;
             //    d_zz[tidd]=1000.0000000;
             //}
+
+                
         }
         
     }
@@ -320,7 +322,7 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
 }
 
 __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz,double *d_vx, double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz,
-int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr,double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zero_factor, int *zerofactorrsumblock, int blockSize_ ,int grid_size_,
+int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr,double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactorrsumblock, int blockSize_ ,int grid_size_,
 double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, int *zerofactorr1,
 double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2, int *zerofactorr2,
 double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3, int *zerofactorr3,
@@ -380,6 +382,11 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
 
 
     reduceTraj<<<grid_size, blockSize>>>(d_x, d_y, d_z, d_xx, d_yy, d_zz, N, skipfactor, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr);
+     gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
+
+    
+    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
     
@@ -757,9 +764,9 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     gpuErrchk( cudaDeviceSynchronize() );*/
 
 
-    reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
+    /*reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
      gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
+    gpuErrchk( cudaDeviceSynchronize() );*/
 
     /*initializeArray<<<grid_size, blockSize>>>(d_vxx_lim1, NN, 1000.000000);
      gpuErrchk( cudaPeekAtLastError() );
@@ -840,9 +847,9 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     gpuErrchk( cudaDeviceSynchronize() );*/
 
     //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
-    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
+    /*intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
     gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
+    gpuErrchk( cudaDeviceSynchronize() );*/
 
     /*intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor1, zerofactorsumblock1, NN);
      gpuErrchk( cudaPeekAtLastError() );
@@ -866,7 +873,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
      gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() ); */
 
-    cudaMemcpy(block_sum_zerofactor, zerofactorsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    //cudaMemcpy(block_sum_zerofactor, zerofactorsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
 
     /*cudaMemcpy(block_sum_zerofactor1, zerofactorsumblock1, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(block_sum_zerofactor2, zerofactorsumblock2, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
@@ -876,7 +883,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     cudaMemcpy(block_sum_zerofactor6, zerofactorsumblock6, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(block_sum_zerofactor7, zerofactorsumblock7, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);*/
 
-    int d_zerofactor_sum = 0;
+    //int d_zerofactor_sum = 0;
 
     /*int d_zerofactor1_sum = 0;
     int d_zerofactor2_sum = 0;
@@ -886,17 +893,17 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     int d_zerofactor6_sum = 0;
     int d_zerofactor7_sum = 0;*/
 
-    for (int j = 0; j < grid_size; j++)
+    /*for (int j = 0; j < grid_size; j++)
         {
             d_zerofactor_sum += block_sum_zerofactor[j];
 
-            /*d_zerofactor1_sum += block_sum_zerofactor1[j];
+            d_zerofactor1_sum += block_sum_zerofactor1[j];
             d_zerofactor2_sum += block_sum_zerofactor2[j];
             d_zerofactor3_sum += block_sum_zerofactor3[j];
             d_zerofactor4_sum += block_sum_zerofactor4[j];
             d_zerofactor5_sum += block_sum_zerofactor5[j];
             d_zerofactor6_sum += block_sum_zerofactor6[j];
-            d_zerofactor7_sum += block_sum_zerofactor7[j];*/
+            d_zerofactor7_sum += block_sum_zerofactor7[j];
 
 
 
@@ -905,7 +912,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
 
 
            
-        }
+        }*/
 
     //printf("zerofactor = %i", d_zerofactor_sum);
 
@@ -918,7 +925,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     d_zerofactor7_sum = NN-d_zerofactor7_sum;*/
 
 
-    xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
+    //xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
     /*xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactor1_sum);
     xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactor2_sum);
