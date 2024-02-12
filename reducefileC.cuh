@@ -319,8 +319,8 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
   
 }
 
-__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz,double *d_vxx, double *d_vyy, double *d_vzz,
-int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr, int *zerofactorrsumblock, int blockSize_ ,int grid_size_,
+__host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz,double *d_vx, double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz,
+int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr,double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zero_factor, int *zerofactorrsumblock, int blockSize_ ,int grid_size_,
 double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, int *zerofactorr1,
 double *d_xx_lim2,  double *d_yy_lim2, double *d_zz_lim2, int *zerofactorr2,
 double *d_xx_lim3,  double *d_yy_lim3, double *d_zz_lim3, int *zerofactorr3,
