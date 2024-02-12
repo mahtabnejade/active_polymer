@@ -321,6 +321,63 @@ __global__ void reduceTraj(double *d_x,double *d_y, double *d_z, double *d_xx, d
   
 }
 
+
+__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zero_factor){
+
+    int tid = blockIdx.x*blockDim.x + threadIdx.x;
+    int tidd = int(tid/skipfactor);
+    int decimalPlacess = 3; // Number of decimal places to keep
+    
+
+    if (tid<N)
+    {
+
+        if (tid%skipfactor == 0)
+        {
+            
+
+
+
+
+
+
+
+
+
+
+
+
+            //if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 ){
+            //if (d_y[tid]<10 && d_y[tid]>=0){
+
+                roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
+                //roundedNumber_vx[tid]=d_vx[tid];
+           
+                roundedNumber_vy[tid] = roundf(d_vy[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
+                //roundedNumber_vy[tid]=d_vy[tid];
+            
+                roundedNumber_vz[tid]= roundf(d_vz[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
+                //roundedNumber_vz[tid]=d_vz[tid];
+
+                d_vxx[tidd]=roundedNumber_vx[tid];
+                d_vyy[tidd]=roundedNumber_vy[tid];
+                d_vzz[tidd]=roundedNumber_vz[tid];
+            //}
+            //}
+            //else{
+            //      zero_factor[tid] = 1;
+                  //printf("*");
+            //      d_vxx[tidd]=1000.0000000;
+            //      d_vyy[tidd]=1000.0000000;
+            //      d_vzz[tidd]=1000.0000000;
+            //    }
+        }
+
+     
+    }
+
+}
+
 __host__ void reducetraj(std::string basename, double *d_x,double *d_y, double *d_z,double *d_xx, double *d_yy, double *d_zz,double *d_vx, double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz,
 int N, int skipfactor,int grid_size, double *roundedNumber_x,double *roundedNumber_y,double *roundedNumber_z, int *zerofactorr,double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zerofactor, int *zerofactorrsumblock, int blockSize_ ,int grid_size_,
 double *d_xx_lim1,  double *d_yy_lim1, double *d_zz_lim1, int *zerofactorr1,
@@ -639,61 +696,6 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
 
 
 
-__global__ void reduceVel( double *d_vx,double *d_vy, double *d_vz, double *d_vxx, double *d_vyy, double *d_vzz, double *d_x, double *d_y, double *d_z, int N, int skipfactor, double *roundedNumber_vx,double *roundedNumber_vy,double *roundedNumber_vz, int *zero_factor){
-
-    int tid = blockIdx.x*blockDim.x + threadIdx.x;
-    int tidd = int(tid/skipfactor);
-    int decimalPlacess = 3; // Number of decimal places to keep
-    
-
-    if (tid<N)
-    {
-
-        if (tid%skipfactor == 0)
-        {
-            
-
-
-
-
-
-
-
-
-
-
-
-
-            //if (d_x[tid] < 5 && d_y[tid] < 5 && d_z[tid] < 5 && d_x[tid] > -5 && d_y[tid] > -5 && d_z[tid] > -5 ){
-            //if (d_y[tid]<10 && d_y[tid]>=0){
-
-                roundedNumber_vx[tid] = roundf(d_vx[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
-                //roundedNumber_vx[tid]=d_vx[tid];
-           
-                roundedNumber_vy[tid] = roundf(d_vy[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
-                //roundedNumber_vy[tid]=d_vy[tid];
-            
-                roundedNumber_vz[tid]= roundf(d_vz[tid] * pow(10, decimalPlacess)) / pow(10, decimalPlacess);
-                //roundedNumber_vz[tid]=d_vz[tid];
-
-                d_vxx[tidd]=roundedNumber_vx[tid];
-                d_vyy[tidd]=roundedNumber_vy[tid];
-                d_vzz[tidd]=roundedNumber_vz[tid];
-            //}
-            //}
-            //else{
-            //      zero_factor[tid] = 1;
-                  //printf("*");
-            //      d_vxx[tidd]=1000.0000000;
-            //      d_vyy[tidd]=1000.0000000;
-            //      d_vzz[tidd]=1000.0000000;
-            //    }
-        }
-
-     
-    }
-
-}
 
 __global__ void startend_points(double *d_xx, double *d_yy, double *d_zz, double *d_vxx, double *d_vyy, double *d_vzz, double *endp_x, double *endp_y, double *endp_z, int NN, double *scalefactor){
 
