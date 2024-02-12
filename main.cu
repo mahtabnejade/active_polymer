@@ -436,7 +436,7 @@ int main(int argc, const char* argv[])
       
         xyz_trj(basename + "_traj.xyz", d_mdX, d_mdY , d_mdZ, Nmd);
         //xyz_trj(basename + "_mpcdtraj.xyz", d_x, d_y , d_z, N);
-        reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz,d_vxx, d_vyy, d_vzz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorrsumblock, blockSize_, grid_size_,
+        reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor, zerofactorrsumblock, blockSize_, grid_size_,
         d_xx_lim1, d_yy_lim1, d_zz_lim1, zerofactorr1,
         d_xx_lim2, d_yy_lim2, d_zz_lim2, zerofactorr2,
         d_xx_lim3, d_yy_lim3, d_zz_lim3, zerofactorr3,
@@ -516,7 +516,7 @@ int main(int argc, const char* argv[])
 
             xyz_trj(basename + "_traj.xyz", d_mdX, d_mdY , d_mdZ, Nmd);
             xyz_trj(basename + "_vel.xyz", d_mdVx, d_mdVy , d_mdVz, Nmd);
-            reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, d_vxx, d_vyy, d_vzz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr, zerofactorrsumblock, blockSize_, grid_size_,
+            reducetraj(basename, d_x, d_y , d_z, d_xx, d_yy, d_zz, d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, N, skipfactor, grid_size, roundedNumber_x, roundedNumber_y, roundedNumber_z, zerofactorr,roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor, zerofactorrsumblock, blockSize_, grid_size_,
                 d_xx_lim1,  d_yy_lim1,  d_zz_lim1, zerofactorr1,
                 d_xx_lim2,  d_yy_lim2,  d_zz_lim2, zerofactorr2,
                 d_xx_lim3,  d_yy_lim3,  d_zz_lim3, zerofactorr3,
