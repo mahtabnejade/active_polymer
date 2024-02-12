@@ -720,15 +720,15 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     int shared_mem_size_ = 3 * blockSize_ * sizeof(int);
     int block_sum_zerofactor[grid_size_];
 
-    int block_sum_zerofactor1[grid_size_];
+    /*int block_sum_zerofactor1[grid_size_];
     int block_sum_zerofactor2[grid_size_];
     int block_sum_zerofactor3[grid_size_];
     int block_sum_zerofactor4[grid_size_];
     int block_sum_zerofactor5[grid_size_];
     int block_sum_zerofactor6[grid_size_];
-    int block_sum_zerofactor7[grid_size_];
+    int block_sum_zerofactor7[grid_size_];*/
     
-    initializeArrayint<<<grid_size,blockSize>>>(zerofactor1, NN, 0);
+    /*initializeArrayint<<<grid_size,blockSize>>>(zerofactor1, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
@@ -754,7 +754,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
 
     initializeArrayint<<<grid_size,blockSize>>>(zerofactor7, NN, 0);
     gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
+    gpuErrchk( cudaDeviceSynchronize() );*/
 
 
     reduceVel<<<grid_size, blockSize>>>(d_vx, d_vy, d_vz, d_vxx, d_vyy, d_vzz, d_x, d_y, d_z, N, skipfactor, roundedNumber_vx, roundedNumber_vy, roundedNumber_vz, zerofactor);
@@ -840,9 +840,9 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     gpuErrchk( cudaDeviceSynchronize() );*/
 
     //in this line we should sum over all zerofactor elements to calculate zerofactor_sum
-    //intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
-    // gpuErrchk( cudaPeekAtLastError() );
-    //gpuErrchk( cudaDeviceSynchronize() );
+    intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor, zerofactorsumblock, N);
+    gpuErrchk( cudaPeekAtLastError() );
+    gpuErrchk( cudaDeviceSynchronize() );
 
     /*intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor1, zerofactorsumblock1, NN);
      gpuErrchk( cudaPeekAtLastError() );
@@ -864,39 +864,39 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     gpuErrchk( cudaDeviceSynchronize() );
     intreduceKernel_<<<grid_size_,blockSize_,shared_mem_size_>>>(zerofactor7, zerofactorsumblock7, NN);
      gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() ); 
+    gpuErrchk( cudaDeviceSynchronize() ); */
 
     cudaMemcpy(block_sum_zerofactor, zerofactorsumblock, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
 
-    cudaMemcpy(block_sum_zerofactor1, zerofactorsumblock1, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    /*cudaMemcpy(block_sum_zerofactor1, zerofactorsumblock1, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(block_sum_zerofactor2, zerofactorsumblock2, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(block_sum_zerofactor3, zerofactorsumblock3, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(block_sum_zerofactor4, zerofactorsumblock4, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(block_sum_zerofactor5, zerofactorsumblock5, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(block_sum_zerofactor6, zerofactorsumblock6, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
-    cudaMemcpy(block_sum_zerofactor7, zerofactorsumblock7, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(block_sum_zerofactor7, zerofactorsumblock7, grid_size_*sizeof(int), cudaMemcpyDeviceToHost);*/
 
     int d_zerofactor_sum = 0;
 
-    int d_zerofactor1_sum = 0;
+    /*int d_zerofactor1_sum = 0;
     int d_zerofactor2_sum = 0;
     int d_zerofactor3_sum = 0;
     int d_zerofactor4_sum = 0;
     int d_zerofactor5_sum = 0;
     int d_zerofactor6_sum = 0;
-    int d_zerofactor7_sum = 0;
+    int d_zerofactor7_sum = 0;*/
 
     for (int j = 0; j < grid_size; j++)
         {
             d_zerofactor_sum += block_sum_zerofactor[j];
 
-            d_zerofactor1_sum += block_sum_zerofactor1[j];
+            /*d_zerofactor1_sum += block_sum_zerofactor1[j];
             d_zerofactor2_sum += block_sum_zerofactor2[j];
             d_zerofactor3_sum += block_sum_zerofactor3[j];
             d_zerofactor4_sum += block_sum_zerofactor4[j];
             d_zerofactor5_sum += block_sum_zerofactor5[j];
             d_zerofactor6_sum += block_sum_zerofactor6[j];
-            d_zerofactor7_sum += block_sum_zerofactor7[j];
+            d_zerofactor7_sum += block_sum_zerofactor7[j];*/
 
 
 
@@ -907,9 +907,9 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
            
         }
 
-    printf("zerofactor = %i", d_zerofactor_sum);
+    //printf("zerofactor = %i", d_zerofactor_sum);
 
-    d_zerofactor1_sum = NN-d_zerofactor1_sum;
+    /*d_zerofactor1_sum = NN-d_zerofactor1_sum;
     d_zerofactor2_sum = NN-d_zerofactor2_sum;
     d_zerofactor3_sum = NN-d_zerofactor3_sum;
     d_zerofactor4_sum = NN-d_zerofactor4_sum;
@@ -918,7 +918,7 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     d_zerofactor7_sum = NN-d_zerofactor7_sum;*/
 
 
-    //xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
+    xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
     /*xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactor1_sum);
     xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactor2_sum);
