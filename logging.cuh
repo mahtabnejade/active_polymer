@@ -109,6 +109,13 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
 
 }
 
+__host__ void zero_factor(std::string file_name,int Nmd, int zerofactor_sum){
+
+    std::ofstream account(file_name, std::ios_base::app);
+    int N_nonzero = Nmd - zerofactor_sum;
+    account<<N_nonzero<<"\n";
+}
+
 void flowprofile(int *d_index,double *d_vx, FILE *file, int N)
     {
         double *vx;
