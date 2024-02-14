@@ -671,23 +671,23 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
     
     
     //printf("number of zeros is = %i\n", d_zerofactorr_sum);
-    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum, zerofactorr);
+    xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
 
-    xyz_trj_mpcd(basename + "_1mpcdtraj___reduced.xyz", d_xx_lim1, d_yy_lim1 , d_zz_lim1, NN, d_zerofactorr1_sum, zerofactorr1);
-    xyz_trj_mpcd(basename + "_2mpcdtraj___reduced.xyz", d_xx_lim2, d_yy_lim2 , d_zz_lim2, NN, d_zerofactorr2_sum, zerofactorr2);
-    xyz_trj_mpcd(basename + "_3mpcdtraj___reduced.xyz", d_xx_lim3, d_yy_lim3 , d_zz_lim3, NN, d_zerofactorr3_sum, zerofactorr3);
-    xyz_trj_mpcd(basename + "_4mpcdtraj___reduced.xyz", d_xx_lim4, d_yy_lim4 , d_zz_lim4, NN, d_zerofactorr4_sum, zerofactorr4);
-    xyz_trj_mpcd(basename + "_5mpcdtraj___reduced.xyz", d_xx_lim5, d_yy_lim5 , d_zz_lim5, NN, d_zerofactorr5_sum, zerofactorr5);
-    xyz_trj_mpcd(basename + "_6mpcdtraj___reduced.xyz", d_xx_lim6, d_yy_lim6 , d_zz_lim6, NN, d_zerofactorr6_sum, zerofactorr6);
-    xyz_trj_mpcd(basename + "_7mpcdtraj___reduced.xyz", d_xx_lim7, d_yy_lim7 , d_zz_lim7, NN, d_zerofactorr7_sum, zerofactorr7);
+    xyz_trj_mpcd(basename + "_1mpcdtraj___reduced.xyz", d_xx_lim1, d_yy_lim1 , d_zz_lim1, NN, d_zerofactorr1_sum);
+    xyz_trj_mpcd(basename + "_2mpcdtraj___reduced.xyz", d_xx_lim2, d_yy_lim2 , d_zz_lim2, NN, d_zerofactorr2_sum);
+    xyz_trj_mpcd(basename + "_3mpcdtraj___reduced.xyz", d_xx_lim3, d_yy_lim3 , d_zz_lim3, NN, d_zerofactorr3_sum);
+    xyz_trj_mpcd(basename + "_4mpcdtraj___reduced.xyz", d_xx_lim4, d_yy_lim4 , d_zz_lim4, NN, d_zerofactorr4_sum);
+    xyz_trj_mpcd(basename + "_5mpcdtraj___reduced.xyz", d_xx_lim5, d_yy_lim5 , d_zz_lim5, NN, d_zerofactorr5_sum);
+    xyz_trj_mpcd(basename + "_6mpcdtraj___reduced.xyz", d_xx_lim6, d_yy_lim6 , d_zz_lim6, NN, d_zerofactorr6_sum);
+    xyz_trj_mpcd(basename + "_7mpcdtraj___reduced.xyz", d_xx_lim7, d_yy_lim7 , d_zz_lim7, NN, d_zerofactorr7_sum);
 
-    xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactorr1_sum, zerofactorr1);
-    xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactorr2_sum, zerofactorr2);
-    xyz_trj_mpcd(basename + "_3mpcdvel___reduced.xyz", d_vxx_lim3, d_vyy_lim3 , d_vzz_lim3, NN, d_zerofactorr3_sum, zerofactorr3);
-    xyz_trj_mpcd(basename + "_4mpcdvel___reduced.xyz", d_vxx_lim4, d_vyy_lim4 , d_vzz_lim4, NN, d_zerofactorr4_sum, zerofactorr4);
-    xyz_trj_mpcd(basename + "_5mpcdvel___reduced.xyz", d_vxx_lim5, d_vyy_lim5 , d_vzz_lim5, NN, d_zerofactorr5_sum, zerofactorr5);
-    xyz_trj_mpcd(basename + "_6mpcdvel___reduced.xyz", d_vxx_lim6, d_vyy_lim6 , d_vzz_lim6, NN, d_zerofactorr6_sum, zerofactorr6);
-    xyz_trj_mpcd(basename + "_7mpcdvel___reduced.xyz", d_vxx_lim7, d_vyy_lim7 , d_vzz_lim7, NN, d_zerofactorr7_sum, zerofactorr7);
+    xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactorr1_sum);
+    xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactorr2_sum);
+    xyz_trj_mpcd(basename + "_3mpcdvel___reduced.xyz", d_vxx_lim3, d_vyy_lim3 , d_vzz_lim3, NN, d_zerofactorr3_sum);
+    xyz_trj_mpcd(basename + "_4mpcdvel___reduced.xyz", d_vxx_lim4, d_vyy_lim4 , d_vzz_lim4, NN, d_zerofactorr4_sum);
+    xyz_trj_mpcd(basename + "_5mpcdvel___reduced.xyz", d_vxx_lim5, d_vyy_lim5 , d_vzz_lim5, NN, d_zerofactorr5_sum);
+    xyz_trj_mpcd(basename + "_6mpcdvel___reduced.xyz", d_vxx_lim6, d_vyy_lim6 , d_vzz_lim6, NN, d_zerofactorr6_sum);
+    xyz_trj_mpcd(basename + "_7mpcdvel___reduced.xyz", d_vxx_lim7, d_vyy_lim7 , d_vzz_lim7, NN, d_zerofactorr7_sum);
 
 
 
@@ -927,15 +927,15 @@ __host__ void reducevel(std::string basename, double *d_vx,double *d_vy, double 
     d_zerofactor7_sum = NN-d_zerofactor7_sum;*/
 
 
-    //xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum, zerofactor);
+    //xyz_trj_mpcd(basename + "_mpcdvel___reduced.xyz", d_vxx, d_vyy , d_vzz, NN, d_zerofactor_sum);
 
-    /*xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactor1_sum, zerofactor1);
-    xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactor2_sum, zerofactor2);
-    xyz_trj_mpcd(basename + "_3mpcdvel___reduced.xyz", d_vxx_lim3, d_vyy_lim3 , d_vzz_lim3, NN, d_zerofactor3_sum, zerofactor3);
-    xyz_trj_mpcd(basename + "_4mpcdvel___reduced.xyz", d_vxx_lim4, d_vyy_lim4 , d_vzz_lim4, NN, d_zerofactor4_sum, zerofactor4);
-    xyz_trj_mpcd(basename + "_5mpcdvel___reduced.xyz", d_vxx_lim5, d_vyy_lim5 , d_vzz_lim5, NN, d_zerofactor5_sum, zerofactor5);
-    xyz_trj_mpcd(basename + "_6mpcdvel___reduced.xyz", d_vxx_lim6, d_vyy_lim6 , d_vzz_lim6, NN, d_zerofactor6_sum, zerofactor6);
-    xyz_trj_mpcd(basename + "_7mpcdvel___reduced.xyz", d_vxx_lim7, d_vyy_lim7 , d_vzz_lim7, NN, d_zerofactor7_sum, zerofactor7);*/
+    /*xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactor1_sum);
+    xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactor2_sum);
+    xyz_trj_mpcd(basename + "_3mpcdvel___reduced.xyz", d_vxx_lim3, d_vyy_lim3 , d_vzz_lim3, NN, d_zerofactor3_sum);
+    xyz_trj_mpcd(basename + "_4mpcdvel___reduced.xyz", d_vxx_lim4, d_vyy_lim4 , d_vzz_lim4, NN, d_zerofactor4_sum);
+    xyz_trj_mpcd(basename + "_5mpcdvel___reduced.xyz", d_vxx_lim5, d_vyy_lim5 , d_vzz_lim5, NN, d_zerofactor5_sum);
+    xyz_trj_mpcd(basename + "_6mpcdvel___reduced.xyz", d_vxx_lim6, d_vyy_lim6 , d_vzz_lim6, NN, d_zerofactor6_sum);
+    xyz_trj_mpcd(basename + "_7mpcdvel___reduced.xyz", d_vxx_lim7, d_vyy_lim7 , d_vzz_lim7, NN, d_zerofactor7_sum);*/
 
 
 
