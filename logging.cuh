@@ -73,7 +73,7 @@ __host__ void xyz_trj(std::string file_name,  double *d_mdX, double *d_mdY , dou
 }
 
 //this function is the same as xyz_trj, but in this version the origin (0 , 0 , 0) is ommited and won't be saved.
-__host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , double *d_Z, int Nmd , int zerofactor_sum)
+__host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , double *d_Z, int Nmd , int zerofactor_sum, int *zero_factor)
 {
     std::ofstream traj (file_name, std::ios_base::app);
 
