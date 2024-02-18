@@ -89,7 +89,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     int counter = 0;
     int zerocounter = 0;
     //traj<<N_nonzero<<"\n\n";
-    traj<<N_nonzero<<"\n";
+    //traj<<N_nonzero<<"\n";
     //traj<<Nmd<<"\n\n";
     for (int i =0 ; i< Nmd ; i++)
     {
