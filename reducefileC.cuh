@@ -673,35 +673,35 @@ int *zerofactorrsumblock1,int *zerofactorrsumblock2,int *zerofactorrsumblock3,in
     //printf("number of zeros is = %i\n", d_zerofactorr_sum);
     xyz_trj_mpcd(basename + "_mpcdtraj___reduced.xyz", d_xx, d_yy , d_zz, NN, d_zerofactorr_sum);
 
-    xyz_trj_mpcd(basename + "_1mpcdtraj___reduced.xyz", d_xx_lim1, d_yy_lim1 , d_zz_lim1, NN, d_zerofactorr1_sum);
-    zero_factor(basename + "_1mpcdcount__reduced.xyz", NN, d_zerofactorr1_sum);
+    xyz_trj_mpcd(basename + "y0mpcdtraj10.xyz", d_xx_lim1, d_yy_lim1 , d_zz_lim1, NN, d_zerofactorr1_sum);
+    zero_factor(basename + "y0count10.xyz", NN, d_zerofactorr1_sum);
 
-    xyz_trj_mpcd(basename + "_2mpcdtraj___reduced.xyz", d_xx_lim2, d_yy_lim2 , d_zz_lim2, NN, d_zerofactorr2_sum);
-    zero_factor(basename + "_2mpcdcount__reduced.xyz", NN, d_zerofactorr2_sum);
+    xyz_trj_mpcd(basename + "y10mpcdtraj20.xyz", d_xx_lim2, d_yy_lim2 , d_zz_lim2, NN, d_zerofactorr2_sum);
+    zero_factor(basename + "y10count20.xyz", NN, d_zerofactorr2_sum);
 
-    xyz_trj_mpcd(basename + "_3mpcdtraj___reduced.xyz", d_xx_lim3, d_yy_lim3 , d_zz_lim3, NN, d_zerofactorr3_sum);
-    zero_factor(basename + "_3mpcdcount__reduced.xyz", NN, d_zerofactorr3_sum); 
+    xyz_trj_mpcd(basename + "y20mpcdtraj30.xyz", d_xx_lim3, d_yy_lim3 , d_zz_lim3, NN, d_zerofactorr3_sum);
+    zero_factor(basename + "y20count30.xyz", NN, d_zerofactorr3_sum); 
 
-    xyz_trj_mpcd(basename + "_4mpcdtraj___reduced.xyz", d_xx_lim4, d_yy_lim4 , d_zz_lim4, NN, d_zerofactorr4_sum);
-    zero_factor(basename + "_4mpcdcount__reduced.xyz", NN, d_zerofactorr4_sum);
+    xyz_trj_mpcd(basename + "y-10mpcdtraj0.xyz", d_xx_lim4, d_yy_lim4 , d_zz_lim4, NN, d_zerofactorr4_sum);
+    zero_factor(basename + "y-10count0.xyz", NN, d_zerofactorr4_sum);
 
-    xyz_trj_mpcd(basename + "_5mpcdtraj___reduced.xyz", d_xx_lim5, d_yy_lim5 , d_zz_lim5, NN, d_zerofactorr5_sum);
-    zero_factor(basename + "_5mpcdcount__reduced.xyz", NN, d_zerofactorr5_sum);
+    xyz_trj_mpcd(basename + "y-20mpcdtraj-10.xyz", d_xx_lim5, d_yy_lim5 , d_zz_lim5, NN, d_zerofactorr5_sum);
+    zero_factor(basename + "y-20count-10.xyz", NN, d_zerofactorr5_sum);
 
-    xyz_trj_mpcd(basename + "_6mpcdtraj___reduced.xyz", d_xx_lim6, d_yy_lim6 , d_zz_lim6, NN, d_zerofactorr6_sum);
-    zero_factor(basename + "_6mpcdcount__reduced.xyz", NN, d_zerofactorr6_sum);
+    xyz_trj_mpcd(basename + "y-30mpcdtraj-20.xyz", d_xx_lim6, d_yy_lim6 , d_zz_lim6, NN, d_zerofactorr6_sum);
+    zero_factor(basename + "y-30count-20.xyz", NN, d_zerofactorr6_sum);
 
     xyz_trj_mpcd(basename + "_7mpcdtraj___reduced.xyz", d_xx_lim7, d_yy_lim7 , d_zz_lim7, NN, d_zerofactorr7_sum);
     zero_factor(basename + "_7mpcdcount__reduced.xyz", NN, d_zerofactorr7_sum);
 
 
 
-    xyz_trj_mpcd(basename + "_1mpcdvel___reduced.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactorr1_sum);
-    xyz_trj_mpcd(basename + "_2mpcdvel___reduced.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactorr2_sum);
-    xyz_trj_mpcd(basename + "_3mpcdvel___reduced.xyz", d_vxx_lim3, d_vyy_lim3 , d_vzz_lim3, NN, d_zerofactorr3_sum);
-    xyz_trj_mpcd(basename + "_4mpcdvel___reduced.xyz", d_vxx_lim4, d_vyy_lim4 , d_vzz_lim4, NN, d_zerofactorr4_sum);
-    xyz_trj_mpcd(basename + "_5mpcdvel___reduced.xyz", d_vxx_lim5, d_vyy_lim5 , d_vzz_lim5, NN, d_zerofactorr5_sum);
-    xyz_trj_mpcd(basename + "_6mpcdvel___reduced.xyz", d_vxx_lim6, d_vyy_lim6 , d_vzz_lim6, NN, d_zerofactorr6_sum);
+    xyz_trj_mpcd(basename + "y0mpcdvel10.xyz", d_vxx_lim1, d_vyy_lim1 , d_vzz_lim1, NN, d_zerofactorr1_sum);
+    xyz_trj_mpcd(basename + "y10mpcdvel20.xyz", d_vxx_lim2, d_vyy_lim2 , d_vzz_lim2, NN, d_zerofactorr2_sum);
+    xyz_trj_mpcd(basename + "y20mpcdvel30.xyz", d_vxx_lim3, d_vyy_lim3 , d_vzz_lim3, NN, d_zerofactorr3_sum);
+    xyz_trj_mpcd(basename + "y-10mpcdvel0.xyz", d_vxx_lim4, d_vyy_lim4 , d_vzz_lim4, NN, d_zerofactorr4_sum);
+    xyz_trj_mpcd(basename + "y-20mpcdvel-10.xyz", d_vxx_lim5, d_vyy_lim5 , d_vzz_lim5, NN, d_zerofactorr5_sum);
+    xyz_trj_mpcd(basename + "y-30mpcdvel-20.xyz", d_vxx_lim6, d_vyy_lim6 , d_vzz_lim6, NN, d_zerofactorr6_sum);
     xyz_trj_mpcd(basename + "_7mpcdvel___reduced.xyz", d_vxx_lim7, d_vyy_lim7 , d_vzz_lim7, NN, d_zerofactorr7_sum);
 
 
