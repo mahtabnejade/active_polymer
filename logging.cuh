@@ -89,7 +89,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
     int counter = 0;
     int zerocounter = 0;
     //traj<<N_nonzero<<"\n\n";
-    //traj<<N_nonzero<<"\n";
+    traj<<"N      "<<N_nonzero<<"      "<<0<<"      "<<0<<"\n";
     //traj<<Nmd<<"\n\n";
     for (int i =0 ; i< Nmd ; i++)
     {
@@ -100,6 +100,7 @@ __host__ void xyz_trj_mpcd(std::string file_name,  double *d_X, double *d_Y , do
 
         else if (h_X[i] != 1000.0000000 || h_Y[i] != 1000.0000000 || h_Z[i] != 1000.0000000){
             traj<<"C      "<<h_X[i]<<"      "<<h_Y[i]<<"      "<<h_Z[i]<<"\n";
+            
             counter = counter +1;
             //printf("nonzero\n");
         }
