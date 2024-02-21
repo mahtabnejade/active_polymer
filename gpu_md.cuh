@@ -27,9 +27,14 @@ double *Id_Fx_holder , double *Id_Fy_holder, double *Id_Fz_holder,
             mdAy[0]=0;
             mdAz[0]=0;
             //monomer[i].init(kT ,box, mass);
-            mdVx[0] = normaldistribution(generator);
-            mdVy[0] = normaldistribution(generator);
-            mdVz[0] = normaldistribution(generator);
+            //mdVx[0] = normaldistribution(generator);
+            //mdVy[0] = normaldistribution(generator);
+            //mdVz[0] = normaldistribution(generator);
+
+            mdVx[0] = 0;
+            mdVy[0] = 0;
+            mdVz[0] = 0; 
+
             //monomer[i].x[0]  = xx[0] //+ r * sin(i *theta);
             mdX[0]  = Ixx[0]; // + r * sin(i *theta);
             //monomer[i].x[1]  = xx[1] //+ r * cos(i *theta);
