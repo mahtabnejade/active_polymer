@@ -80,9 +80,11 @@ curandGenerator_t gen, int grid_size)
     double px,py,pz;
     cudaMalloc((void**)&d_tmp, sizeof(double)*grid_size);
     mpcd_init(gen, d_x, d_y, d_z, d_vx, d_vy, d_vz, grid_size, N);
+    //sum over d_vx blocks 
     sumCommMultiBlock<<<grid_size, blockSize>>>(d_vx, N, d_tmp);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
+    //sum over all the blocks ( d_tmp in this case is the total sum of the mpcd particles initial d_vxs.)
     sumCommMultiBlock<<<1, blockSize>>>(d_tmp, grid_size, d_tmp);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
