@@ -198,7 +198,7 @@ __host__ void CM_system(double *mdX, double *mdY, double *mdZ, double *dX, doubl
 
     
         int M_tot = mass*Nmd+mass_fluid*N;
-        //int M_tot = 1 ;
+        
 
    
         XCM = ( (mass*Nmd* *mdX_tot) + (mass_fluid*N* *dX_tot) )/M_tot;
