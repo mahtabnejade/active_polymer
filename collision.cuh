@@ -238,7 +238,7 @@ curandState *devStates, int grid_size)
 
 
             // Similar to the previous line, this one launches the E_cell kernel again. However, this time it updates the cell energy (d_e) due to the velocity changes of MD particles
-            //The total number of MPCD particles is given by Nmd
+            //The total number of MD particles is given by Nmd
             E_cell<<<grid_size,blockSize>>>(d_mdVx, d_mdVy, d_mdVz, d_e, d_mdIndex, Nmd , density);
             gpuErrchk( cudaPeekAtLastError() );
             gpuErrchk( cudaDeviceSynchronize() );
