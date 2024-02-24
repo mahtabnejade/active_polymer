@@ -454,7 +454,7 @@ int main(int argc, const char* argv[])
         zerofactorrsumblock1,zerofactorrsumblock2,zerofactorrsumblock3,zerofactorrsumblock4,zerofactorrsumblock5,zerofactorrsumblock6,zerofactorrsumblock7);
 
  
-        for(int t = TIME/swapsize ; t<T; t++)
+        for(int t = TIME/swapsize ; t<T; t++) //T is TIME/swapsize + simulationtime/swapsize. it goes 10 steps from TIME/swapsize till end (in case swapsize is 100 and siumlationtime is 1000). 
         {
             
             for (int i =0;i<int(swapsize/h_mpcd); i++) //swapsize/h_mpcd when swapsize is 100 and h_mpcd is 0.1, is equal to 1000.
