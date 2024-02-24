@@ -30,7 +30,7 @@ hmd=0.002
 #mpcd time step:
 hmpcd=0.01
 
-# output intervall 
+# output intervall (swapsize)
 Tout=1
 
 # simulate time 
