@@ -209,7 +209,7 @@ curandState *devStates, int grid_size)
             gpuErrchk( cudaDeviceSynchronize() );
 
 
-            //This launches the relativeVelocity kernel again, but this time it calculates the relative velocities between MPCD particles and their corresponding cell mean velocities
+            //This launches the relativeVelocity kernel again, but this time it calculates the relative velocities between MD particles and their corresponding cell mean velocities
             relativeVelocity<<<grid_size,blockSize>>>(d_ux, d_uy, d_uz, d_n, d_mdVx, d_mdVy, d_mdVz, d_mdIndex, Nmd);
             gpuErrchk( cudaPeekAtLastError() );
             gpuErrchk( cudaDeviceSynchronize() );
