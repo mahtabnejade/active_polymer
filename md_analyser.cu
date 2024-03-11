@@ -1,6 +1,7 @@
 #include <iostream>
 #include "md_analyser.cuh"
 #include "LEBC.cuh"
+#include "nonslipXperiodic.cuh"
 
 __host__ double momentum(int mass , double *v , int N)
 {
