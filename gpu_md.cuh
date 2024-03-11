@@ -40,7 +40,7 @@ double *Id_Fx_holder , double *Id_Fy_holder, double *Id_Fz_holder,
             //monomer[i].x[1]  = xx[1] //+ r * cos(i *theta);
             mdY[0]  = Ixx[1]; // + r * cos(i *theta);
             //monomer[i].x[2]  = xx[2];
-            mdZ[0]  = Ixx[2];
+            mdZ[0]  = Ixx[2]; //pos is equal to {0,0,0} which is the origin of cartesian coordinates. this is the initial location of the MD single particle.
         }
     }
     if (Itopology == 1)  //poly [2] catenane
@@ -411,6 +411,10 @@ __host__ void MD_streaming(double *d_mdX, double *d_mdY, double *d_mdZ,
         
         //After updating particle positions, a kernel named LEBC is called to apply boundary conditions to ensure that particles stay within the simulation box.
         LEBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx , ux , d_L, real_time , Nmd);
+        gpuErrchk( cudaPeekAtLastError() );
+        gpuErrchk( cudaDeviceSynchronize() );
+
+        nonslipXperiodicBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx ,d_mdVy, d_mdVz, ux , d_L, real_time , Nmd);
         gpuErrchk( cudaPeekAtLastError() );
         gpuErrchk( cudaDeviceSynchronize() );
         
