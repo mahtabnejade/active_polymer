@@ -692,9 +692,9 @@ __host__ void Active_MD_streaming(double *d_mdX, double *d_mdY, double *d_mdZ,
         
         
         //After updating particle positions, a kernel named LEBC is called to apply boundary conditions to ensure that particles stay within the simulation box.
-        LEBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx , ux , d_L, real_time , Nmd);
-        gpuErrchk( cudaPeekAtLastError() );
-        gpuErrchk( cudaDeviceSynchronize() );
+        //LEBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx , ux , d_L, real_time , Nmd);
+        //gpuErrchk( cudaPeekAtLastError() );
+        //gpuErrchk( cudaDeviceSynchronize() );
 
         //one can choose to have another kind of boundary condition , in this case it is nonslip in y z planes and (lees edwards) periodic in x plane. 
         nonslipXperiodicBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx ,d_mdVy, d_mdVz, ux , d_L, real_time , Nmd);
