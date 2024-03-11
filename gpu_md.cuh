@@ -414,6 +414,7 @@ __host__ void MD_streaming(double *d_mdX, double *d_mdY, double *d_mdZ,
         //gpuErrchk( cudaPeekAtLastError() );
         //gpuErrchk( cudaDeviceSynchronize() );
 
+        //a function to consider non slip boundary conditions in y and z planes and have periodic BC in x plane.
         nonslipXperiodicBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx ,d_mdVy, d_mdVz, ux , d_L, real_time , Nmd);
         gpuErrchk( cudaPeekAtLastError() );
         gpuErrchk( cudaDeviceSynchronize() );
