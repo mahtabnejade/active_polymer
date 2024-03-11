@@ -695,6 +695,12 @@ __host__ void Active_MD_streaming(double *d_mdX, double *d_mdY, double *d_mdZ,
         LEBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx , ux , d_L, real_time , Nmd);
         gpuErrchk( cudaPeekAtLastError() );
         gpuErrchk( cudaDeviceSynchronize() );
+
+        //one can choose to have another kind of boundary condition , in this case it is nonslip in y z planes and (lees edwards) periodic in x plane. 
+        nonslipXperiodicBC<<<grid_size,blockSize>>>(d_mdX, d_mdY, d_mdZ, d_mdVx ,d_mdVy, d_mdVz, ux , d_L, real_time , Nmd);
+        gpuErrchk( cudaPeekAtLastError() );
+        gpuErrchk( cudaDeviceSynchronize() );
+
         
         //The function calc_accelaration is called to compute the new accelerations for each particle based on their positions and interactions.
         //These accelerations are used in the subsequent time step to update particle velocities.
