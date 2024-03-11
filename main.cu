@@ -491,8 +491,8 @@ int main(int argc, const char* argv[])
                     h_fa_x, h_fa_y, h_fa_z, h_fb_x, h_fb_y, h_fb_z, d_block_sum_ex, d_block_sum_ey, d_block_sum_ez, 
                     h_md , Nmd ,density ,d_L ,ux ,grid_size ,delta ,real_time ,m_md ,N ,density ,1 , gama_T, d_random_array, d_seed, topology, h_Xcm, h_Ycm, h_Zcm, d_flag_array, u_scale);
                 
-                Sort_begin(d_x , d_y , d_z ,d_vx, d_index , d_mdX , d_mdY , d_mdZ ,
-                    d_mdVx, d_mdIndex ,ux , d_L , d_r , N , Nmd , real_time, grid_size);
+                Sort_begin(d_x , d_y , d_z ,d_vx, d_vy, d_vz, d_index , d_mdX , d_mdY , d_mdZ ,
+                    d_mdVx, d_mdVy, d_mdVz, d_mdIndex ,ux , d_L , d_r , N , Nmd , real_time, grid_size);
 
                 MPCD_MD_collision(d_vx , d_vy , d_vz , d_index,
                     d_mdVx , d_mdVy , d_mdVz , d_mdIndex,
