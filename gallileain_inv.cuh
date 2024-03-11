@@ -19,8 +19,8 @@ __global__ void de_grid_shift(double *x , double *y , double *z , double *r , in
     }
 }
 
-__host__ void Sort_begin(double *d_x , double *d_y , double *d_z ,double *d_vx, int *d_index ,
-    double *d_mdX , double *d_mdY , double *d_mdZ ,double *d_mdVx, int *d_mdIndex , double ux,
+__host__ void Sort_begin(double *d_x , double *d_y , double *d_z ,double *d_vx, double *d_vy, double *d_vz, int *d_index ,
+    double *d_mdX , double *d_mdY , double *d_mdZ , double *d_mdVx, double *d_mdVy, double *d_mdVz, int *d_mdIndex , double ux,
     double *d_L , double *d_r ,int N ,int Nmd , double real_time , int grid_size)
 {
     grid_shift<<<grid_size,blockSize>>>(d_x, d_y, d_z, d_r, N);
