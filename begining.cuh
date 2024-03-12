@@ -263,7 +263,7 @@ curandGenerator_t gen, int grid_size, double real_time, double *gama_T, int *d_r
     
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
-    //printf("Im in beginning\n");
+    printf("Im in beginning\n");
     cudaError_t err = cudaGetLastError();
     if (err != cudaSuccess) {
     printf("CUDA error: %s\n", cudaGetErrorString(err));
