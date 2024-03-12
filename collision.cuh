@@ -165,10 +165,10 @@ __global__ void relativeVelocity(double* ux , double* uy , double* uz, int* n, d
 
 }
 
-__host__ void MPCD_MD_collision(double* d_vx ,double*  d_vy ,double*  d_vz , int* d_index,
-double* d_mdVx ,double*  d_mdVy,double*  d_mdVz , int *d_mdIndex,
-double* d_ux ,double*  d_uy ,double*  d_uz ,
-double *d_e ,double *d_scalefactor, int *d_n , int* d_m,
+__host__ void MPCD_MD_collision(double *d_vx ,double *d_vy ,double *d_vz , int *d_index,
+double *d_mdVx ,double *d_mdVy,double *d_mdVz , int *d_mdIndex,
+double  *d_ux ,double *d_uy ,double *d_uz ,
+double *d_e ,double *d_scalefactor, int *d_n , int *d_m,
 double *d_rot, double *d_theta, double *d_phi ,
 int N , int Nmd, int Nc,
 curandState *devStates, int grid_size)
