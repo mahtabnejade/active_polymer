@@ -12,8 +12,8 @@
 #include <exception>
 #include<unistd.h>
 #include "mpcd_macro.cuh"
-#include "LEBC.cuh"
 #include "nonslipXperiodic.cuh"
+#include "LEBC.cuh"
 #include "reduction_sum.cuh"
 #include "thermostat.cuh"
 #include "streaming.cuh"
