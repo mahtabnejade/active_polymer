@@ -1,6 +1,6 @@
 //no slip boundary condition 
 
-__host__ double heaviside_left(double x, double L){
+__device__ double heaviside_left(double x, double L){
 
 
     if (x < L)
@@ -11,7 +11,7 @@ __host__ double heaviside_left(double x, double L){
         return 0.0;
 }
 
-__host__ double heaviside_right(double x, double L){
+__devices__ double heaviside_right(double x, double L){
 
 
     if (x < L)
@@ -31,8 +31,11 @@ __global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *
        
 
             //use the heaviside_right and heaviside_left functions in nonslipXperiodicBC kernel.
+            //*r1 = heaviside_right(x2[tid],L[1]/2);  *l1 = heaviside_left(x2[tid],-L[1]/2);
+            //*r2 = heaviside_right(x3[tid],L[2]/2);  *l2 = heaviside_left(x3[tid],-L[2]/2);
             v2[tid] = heaviside_right(x2[tid],L[1]/2)-heaviside_left(x2[tid],-L[1]/2);
             v3[tid] = heaviside_right(x3[tid],L[2]/2)-heaviside_left(x3[tid],-L[2]/2);
+           
             x1[tid] -= ux * t * round(x3[tid] / L[2]);
             x1[tid] -= L[0] * (round(x1[tid] / L[0]));
             v1[tid] -= ux * round(x3[tid] / L[2]);
