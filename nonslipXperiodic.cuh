@@ -1,6 +1,6 @@
 //no slip boundary condition 
 
-__host__ void heaviside_left(double x, double L){
+__host__ double heaviside_left(double x, double L){
 
 
     if (x < L)
@@ -11,7 +11,7 @@ __host__ void heaviside_left(double x, double L){
         return 0.0;
 }
 
-__host__ void heaviside_right(double x, double L){
+__host__ double heaviside_right(double x, double L){
 
 
     if (x < L)
