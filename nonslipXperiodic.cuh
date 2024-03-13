@@ -8,7 +8,7 @@ __global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *
     {
 
         //check to see if the particle is in y=L[1] or y=0 or z=L[2] or z=0 planes (cube sides)
-        if (x2[tid] == 0 || x2[tid] == L[1] || x3[tid] == 0 || x3[tid] == L[2]){
+        if (x2[tid] == -L[1]/2 || x2[tid] == L[1]/2 || x3[tid] == -L[2]/2 || x3[tid] == L[2]/2){
 
             
             v2[tid] = 0.0;
