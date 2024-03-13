@@ -11,7 +11,7 @@ __device__ double heaviside_left(double x, double L){
         return 0.0;
 }
 
-__devices__ double heaviside_right(double x, double L){
+__device__ double heaviside_right(double x, double L){
 
 
     if (x < L)
