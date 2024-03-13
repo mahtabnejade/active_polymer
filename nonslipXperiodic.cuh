@@ -30,7 +30,7 @@ __global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *
         //check to see if the particle is in y=-L[1]/2 or y=L[1]/2 or z=-L[2]/2 or z=L[2]/2 planes (cube sides)
        
 
-            
+            //use the heaviside_right and heaviside_left functions in nonslipXperiodicBC kernel.
             v2[tid] = heaviside_right(x2[tid],L[1]/2)-heaviside_left(x2[tid],-L[1]/2);
             v3[tid] = heaviside_right(x3[tid],L[2]/2)-heaviside_left(x3[tid],-L[2]/2);
             x1[tid] -= ux * t * round(x3[tid] / L[2]);
