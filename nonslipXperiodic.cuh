@@ -39,6 +39,8 @@ __global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *
             x1[tid] -= ux * t * round(x3[tid] / L[2]);
             x1[tid] -= L[0] * (round(x1[tid] / L[0]));
             v1[tid] -= ux * round(x3[tid] / L[2]);
+            x2[tid] -= L[1] * (round(x2[tid] / L[1]));
+            x3[tid] -= L[2] * (round(x3[tid] / L[2]));
        
       
     }
