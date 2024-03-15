@@ -87,6 +87,9 @@ _global__ void nonslipXperiodicBC2(double *x1 ,double *x2 , double *x3, double *
            
            
             v1[tid] *= ((symmetric_heaviside_left(x2[tid],L[1]/2)-symmetric_heaviside_right(x2[tid],-L[1]/2)) - 1);// vx in y plane (in cube sides should be multipid by -1 but elsewhere must be multipied by 1)
+            //we could also go like this:
+            //v1[tid] *= (2*(heaviside_left(x2[tid],L[1]/2)-heaviside_right(x2[tid],-L[1]/2)))-1);
+            
             v3[tid] *= ((symmetric_heaviside_left(x2[tid],L[1]/2)-symmetric_heaviside_right(x2[tid],-L[1]/2)) - 1);// vz in y plane  (in cube sides should be multipid by -1but elsewhere must be multipied by 1 )
             
             v1[tid] *= ((symmetric_heaviside_left(x3[tid],L[2]/2)-symmetric_heaviside_right(x3[tid],-L[2]/2)) - 1);// vx in z plane (in cube sides should be multipid by -1 but elsewhere must be multipied by 1)
@@ -120,6 +123,7 @@ _global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double *
             
             v1[tid] *= ((heaviside_left(x3[tid],L[2]/2)-heaviside_right(x3[tid],-L[2]/2)) );// vx in z plane (in cube sides must be zero but elsewhere must be multipied by 1)
             v2[tid] *= ((heaviside_left(x3[tid],L[2]/2)-heaviside_right(x3[tid],-L[2]/2)) );// vy in z plane (in cube sides must be zero but elsewhere must be multipied by 1)
+
            //we keep the x plane periodic still. 
             x1[tid] -= ux * t * round(x3[tid] / L[2]);
             x1[tid] -= L[0] * (round(x1[tid] / L[0]));
