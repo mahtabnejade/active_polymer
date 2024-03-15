@@ -69,7 +69,8 @@ __global__ void nonslipXperiodicBC1(double *x1 ,double *x2 , double *x3, double 
     }
 }
 
-
+//this function inverses the direction of particles when they reach the boundaries while keeping the perpendicular velocities on walls equal to zero. 
+//in this function we multipy the tangential components of velocity on walls by -1. 
 _global__ void nonslipXperiodicBC2(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
 {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
