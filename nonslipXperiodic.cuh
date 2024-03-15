@@ -99,7 +99,7 @@ _global__ void nonslipXperiodicBC2(double *x1 ,double *x2 , double *x3, double *
     }
 }
 
-
+//a function to account for a situation where all three components of velocity become zero on walls.
 _global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
 {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
