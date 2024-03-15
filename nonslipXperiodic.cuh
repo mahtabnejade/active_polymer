@@ -149,8 +149,6 @@ _global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double *
             x2[tid] = XL(x2[tid] , L[1]/2);
             x3[tid] = XL(x3[tid] , L[2]/2);
 
-            x2[tid] = 
-            x3[tid] =  
 
             
     }
