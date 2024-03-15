@@ -69,18 +69,3 @@ __global__ void nonslipXperiodicBC1(double *x1 ,double *x2 , double *x3, double 
     }
 }
 
-
-__global__ void nonslipXperiodicBC2(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
-{
-    int tid = blockIdx.x * blockDim.x + threadIdx.x;
-    if(tid<N)
-    {
-        v2[tid] *= (heaviside_right(x2[tid],L[1]/2)-heaviside_left(x2[tid],-L[1]/2));// vy in y plane
-        v3[tid] *= (heaviside_right(x3[tid],L[2]/2)-heaviside_left(x3[tid],-L[2]/2));// vz in z plane
-
-
-
-           
-       
-    }
-}
