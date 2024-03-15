@@ -1,5 +1,5 @@
 
-//Bondry condition:
+//Boundary condition:
 __global__ void LEBC(double *x1 ,double *x2 , double *x3, double *v1 ,double ux,double *L, double t, int N)
 {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
@@ -24,3 +24,5 @@ __device__ __host__ void LeeEdwNearestImage(double x0,double x1, double x2, doub
     r[1] -= L[1] * (round(r[1] / L[1]));
     r[2] -= L[2] * (round(r[2] / L[2]));
 }
+
+
