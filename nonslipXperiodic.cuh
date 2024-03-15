@@ -91,12 +91,39 @@ _global__ void nonslipXperiodicBC2(double *x1 ,double *x2 , double *x3, double *
             
             v1[tid] *= ((symmetric_heaviside_left(x3[tid],L[2]/2)-symmetric_heaviside_right(x3[tid],-L[2]/2)) - 1);// vx in z plane (in cube sides should be multipid by -1 but elsewhere must be multipied by 1)
             v2[tid] *= ((symmetric_heaviside_left(x3[tid],L[2]/2)-symmetric_heaviside_right(x3[tid],-L[2]/2)) - 1);// vy in z plane (in cube sides should be multipid by -1 but elsewhere must be multipied by 1)
-           
+           //we keep the x plane periodic still. 
             x1[tid] -= ux * t * round(x3[tid] / L[2]);
             x1[tid] -= L[0] * (round(x1[tid] / L[0]));
             v1[tid] -= ux * round(x3[tid] / L[2]);
             
+    }
+}
+
+
+_global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
+{
+    int tid = blockIdx.x * blockDim.x + threadIdx.x;
+    if(tid<N)
+    {
+
+        //check to see if the particle is in y=-L[1]/2 or y=L[1]/2 or z=-L[2]/2 or z=L[2]/2 planes (cube sides)
        
-      
+
+            //use the heaviside_right and heaviside_left functions in nonslipXperiodicBC kernel.
+
+            v2[tid] *= (heaviside_left(x2[tid],L[1]/2)-heaviside_right(x2[tid],-L[1]/2));// vy in y plane (in cube sides must be zero but elsewhere must be multipied by 1 )
+            v3[tid] *= (heaviside_left(x3[tid],L[2]/2)-heaviside_right(x3[tid],-L[2]/2));// vz in z plane (in cube sides must be zero but elsewhere must be multipied by 1 )
+           
+           
+            v1[tid] *= ((heaviside_left(x2[tid],L[1]/2)-heaviside_right(x2[tid],-L[1]/2)) );// vx in y plane (in cube sides must be zero but elsewhere must be multipied by 1)
+            v3[tid] *= ((heaviside_left(x2[tid],L[1]/2)-heaviside_right(x2[tid],-L[1]/2)) );// vz in y plane  (in cube sides must be zero but elsewhere must be multipied by 1 )
+            
+            v1[tid] *= ((heaviside_left(x3[tid],L[2]/2)-heaviside_right(x3[tid],-L[2]/2)) );// vx in z plane (in cube sides must be zero but elsewhere must be multipied by 1)
+            v2[tid] *= ((heaviside_left(x3[tid],L[2]/2)-heaviside_right(x3[tid],-L[2]/2)) );// vy in z plane (in cube sides must be zero but elsewhere must be multipied by 1)
+           //we keep the x plane periodic still. 
+            x1[tid] -= ux * t * round(x3[tid] / L[2]);
+            x1[tid] -= L[0] * (round(x1[tid] / L[0]));
+            v1[tid] -= ux * round(x3[tid] / L[2]);
+            
     }
 }
