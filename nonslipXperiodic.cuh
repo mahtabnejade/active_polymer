@@ -21,7 +21,31 @@ __device__ double heaviside_right(double x, double L){
     else
         return 1.0;
 }
-__global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
+
+__device__ double symmetric_heaviside_left(double x, double L){
+
+
+    if (x < L)
+        return -1.0;
+    else if (x > L)
+        return 1.0;
+    else
+        return -1.0;
+}
+
+__device__ double symmetric_heaviside_right(double x, double L){
+
+
+    if (x < L)
+        return -1.0;
+    else if (x > L)
+        return 1.0;
+    else
+        return 1.0;
+
+}
+
+__global__ void nonslipXperiodicBC1(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
 {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
     if(tid<N)
@@ -31,10 +55,9 @@ __global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *
        
 
             //use the heaviside_right and heaviside_left functions in nonslipXperiodicBC kernel.
-            //*r1 = heaviside_right(x2[tid],L[1]/2);  *l1 = heaviside_left(x2[tid],-L[1]/2);
-            //*r2 = heaviside_right(x3[tid],L[2]/2);  *l2 = heaviside_left(x3[tid],-L[2]/2);
-            v2[tid] *= (heaviside_right(x2[tid],L[1]/2)-heaviside_left(x2[tid],-L[1]/2));
-            v3[tid] *= (heaviside_right(x3[tid],L[2]/2)-heaviside_left(x3[tid],-L[2]/2));
+           
+            v2[tid] *= (heaviside_left(x2[tid],L[1]/2)-heaviside_right(x2[tid],-L[1]/2));// vy in y plane
+            v3[tid] *= (heaviside_left(x3[tid],L[2]/2)-heaviside_right(x3[tid],-L[2]/2));// vz in z plane
            
             x1[tid] -= ux * t * round(x3[tid] / L[2]);
             x1[tid] -= L[0] * (round(x1[tid] / L[0]));
@@ -47,15 +70,17 @@ __global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *
 }
 
 
-/*__global__ void nonslipXperiodicBC(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
+__global__ void nonslipXperiodicBC2(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
 {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
     if(tid<N)
     {
-        x1[tid] -= ux * t * round(x3[tid] / L[2]);
-        x1[tid] -= L[0] * (round(x1[tid] / L[0]));
-        v1[tid] -= ux * round(x3[tid] / L[2]);
-        x2[tid] -= L[1] * (round(x2[tid] / L[1]));
-        x3[tid] -= L[2] * (round(x3[tid] / L[2]));
+        v2[tid] *= (heaviside_right(x2[tid],L[1]/2)-heaviside_left(x2[tid],-L[1]/2));// vy in y plane
+        v3[tid] *= (heaviside_right(x3[tid],L[2]/2)-heaviside_left(x3[tid],-L[2]/2));// vz in z plane
+
+
+
+           
+       
     }
-}*/
+}
