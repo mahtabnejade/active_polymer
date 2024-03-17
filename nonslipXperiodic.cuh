@@ -152,8 +152,9 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
             v1[tid] -= ux * round(x3[tid] / L[2]);
 
         //we should make sure at the same time the particles are exactly on the walls when they velocities become zero
-            x2[tid] = XL(x2[tid] , L[1]/2);
-            x3[tid] = XL(x3[tid] , L[2]/2);
+            double epsilon = 0.3;
+            x2[tid] = XL(x2[tid] , L[1]/2, epsilon);
+            x3[tid] = XL(x3[tid] , L[2]/2, epsilon);
 
 
             
