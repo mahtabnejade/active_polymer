@@ -45,13 +45,13 @@ __device__ double symmetric_heaviside_right(double x, double L){
 
 }
 
-__device__ double XL(double x, double L){
+__device__ double XL(double x, double L, double e){
 
-    if (x > L)
+    if (x > (L - e))
         return L;
-    else  if (x == L)
+    else  if (x == (L - e))
         return L;
-    else if (-L < x < L)
+    else if ((-L + e) < x < (L - e))
         return x;
     else 
         return -L;
