@@ -50,7 +50,7 @@ curandGenerator_t gen, int grid_size)
     std::string trj_name = file_name + "_traj.xyz";
     std::ofstream log (log_name);
     std::ofstream trj (trj_name);
-    printf( "***WELCOME TO MPCD_MD_LeesEdwards CUDA CODE!***\nBy: Reyhaneh Afghahi Farimani, rhn_a_farimani@yahoo.com. \nThis code comes with a python code to analyse the results.");
+    printf( "***WELCOME TO MPCD_MD_LeesEdwards CUDA CODE!***\nBy: Reyhaneh Afghahi Farimani, rhn_a_farimani@yahoo.com. ***The Active Polymer MPCD_MD simulation is done***\nBy: Mahtab Taghavinejad, mahtabnejadt@gmail.com.\nThis code comes with a python code to analyse the results.");
     printf("\ninput system:\nensemble:NVT, thermostat= cell_level_Maxwell_Boltzaman_thermostat, Lx=%i,Ly=%i,Lz=%i,shear_rate=%f,density=%i\n", int(L[0]), int(L[1]),int(L[2]), shear_rate, density);
     printf( "SHEAR_FLOW is produced using Lees_Edwards Periodic Boundry Condition: shear direction:x , gradiant direction:z , vorticity direction: y\n");
     if (topology==1)
