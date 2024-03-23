@@ -147,7 +147,13 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
 
         //check to see if the particle is in y=-L[1]/2 or y=L[1]/2 or z=-L[2]/2 or z=L[2]/2 planes (cube sides)
        
-
+            //if (((heaviside_left(x3[tid],(-L[2]/2 + epsilon))-heaviside_right(x3[tid],(L[2]/2 - epsilon))) ) == 0)  printf("  x3[tid] = %f\n", x3[tid]);
+            //if (((heaviside_left(x2[tid],(-L[1]/2 + epsilon))-heaviside_right(x2[tid],(L[1]/2 - epsilon))) ) == 0)  printf("  x2[tid] = %f\n", x2[tid]);
+            //if (x2[tid]>1000) printf("x2[tid] = %f, tid = %i\n", x2[tid], tid);
+            //if (x3[tid]>1000) printf("x3[tid] = %f, tid = %i\n", x3[tid], tid);
+            printf("x2[0]=%f\n", x2[0]);
+            if (tid == 0 && x2[tid] >1000) printf("x2[0] = %f\n", x2[0]); 
+            if (tid != 0 && x2[tid] >1000) printf("error"); 
             //use the heaviside_right and heaviside_left functions in nonslipXperiodicBC kernel.
 
             v2[tid] *= ((heaviside_left(x2[tid],(-L[1]/2 + epsilon))-heaviside_right(x2[tid],(L[1]/2 - epsilon))));// vy in y plane (in cube sides must be zero but elsewhere must be multipied by 1 )
