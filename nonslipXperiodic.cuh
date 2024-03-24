@@ -45,11 +45,11 @@ __device__ double symmetric_heaviside_right(double x, double L){
 
 }
 
-__device__ double XL(double x, double L, double e){
+__device__ double XL(double x, double L, double e, int tid){
 
     if (x > (L + e))
         {
-        printf("x=%f", x);
+        //printf("x=%f", x);
         return L;
         }
     else if ( x == (L + e))
@@ -61,7 +61,10 @@ __device__ double XL(double x, double L, double e){
     else  if (x == (L - e))
         return L;
     else if ((-L + e) < x < (L - e))
+        {
+        printf("///x=%f , tid=%i\n", x , tid);
         return x;
+        }
     else 
         return -L;
     
@@ -191,10 +194,10 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
 
             double epsilon = 0.0;
             double eps = 0.0;
-            if (tid == 0 ){
+            //if (tid == 0 ){
               x2[tid] = XL(x2[tid] , L[1]/2, eps , tid);
               x3[tid] = XL(x3[tid] , L[2]/2, eps , tid);
-              }
+            //  }
             
 
         //check to see if the particle is in y=-L[1]/2 or y=L[1]/2 or z=-L[2]/2 or z=L[2]/2 planes (cube sides)
@@ -203,7 +206,7 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
             //if (((heaviside_left(x2[tid],(-L[1]/2 + epsilon))-heaviside_right(x2[tid],(L[1]/2 - epsilon))) ) == 0)  printf("  x2[tid] = %f\n", x2[tid]);
             //if (x2[tid]>1000) printf("x2[tid] = %f, tid = %i\n", x2[tid], tid);
             //if (x3[tid]>1000) printf("x3[tid] = %f, tid = %i\n", x3[tid], tid);
-            if (tid == 0) printf("x2[0]=%f\n", x2[0]);
+            //if (tid == 0) printf("x2[0]=%f\n", x2[0]);
             //if (tid == 0 && x2[tid] >1000) printf("x2[0] = %f\n", x2[0]); 
             if (tid != 0 && x2[tid] >40) printf("error x2[tid]=%f , tid=%i\n", x2[tid] , tid); 
             //use the heaviside_right and heaviside_left functions in nonslipXperiodicBC kernel.
@@ -229,9 +232,9 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
             //x2[tid] = XL(x2[tid] , L[1]/2, epsilon);
             //x3[tid] = XL(x3[tid] , L[2]/2, epsilon);
 
-            x2[tid] = XL3(x2[tid] , L[1]/2, eps , tid);
-            x3[tid] = XL3(x3[tid] , L[2]/2, eps, tid);
-            if (tid != 0 ) printf(">>>x2[%i]=%f\n", tid , x2[tid]);
+            //x2[tid] = XL3(x2[tid] , L[1]/2, eps , tid);
+            //x3[tid] = XL3(x3[tid] , L[2]/2, eps, tid);
+            //if (tid != 0 ) printf(">>>x2[%i]=%f\n", tid , x2[tid]);
 
 
 
