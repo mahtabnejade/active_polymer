@@ -69,6 +69,54 @@ __device__ double XL(double x, double L, double e){
 }
 
 
+__device__ double XL2(double x, double L, double e, int tid){
+    if (x > (L ))
+        {
+          return L;
+        }
+    else if ((L - e) < x < (L ))
+        {
+          return L;
+        }
+        
+    else  if (x == (L - e))
+        {
+          return L;
+        }
+    else if ((-L + e) < x < (L - e))
+        {
+          printf("x=%f , tid=%i\n", x , tid);
+          return x;
+        }
+    else
+        { 
+          return -L;
+        }
+  }
+
+__device__ double XL3(double x, double L, double e, int tid){
+    if (x > (L ))
+        {
+          return L;
+        }
+  
+    else  if (x == (L))
+        {
+          return L;
+        }
+    else if ((-L ) < x < (L ))
+        {
+          //printf("x=%f , tid=%i\n", x , tid);
+          return x;
+        }
+    else
+        { 
+          return -L;
+        }
+  }
+
+
+
 
 
 __global__ void nonslipXperiodicBC1(double *x1 ,double *x2 , double *x3, double *v1 ,double *v2, double *v3, double ux,double *L, double t, int N)
@@ -174,8 +222,8 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
 
             //by examining I concluded that epsilon needs to be equal to 2 for the particles not to get out of the box.      
             //double epsilon = 2.0;
-            x2[tid] = XL(x2[tid] , L[1]/2, epsilon);
-            x3[tid] = XL(x3[tid] , L[2]/2, epsilon);
+            //x2[tid] = XL(x2[tid] , L[1]/2, epsilon);
+            //x3[tid] = XL(x3[tid] , L[2]/2, epsilon);
 
 
             
