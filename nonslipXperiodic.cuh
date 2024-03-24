@@ -189,9 +189,13 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
     if(tid<N)
     {
 
-            double epsilon = 2.0;
-            x2[tid] = XL(x2[tid] , L[1]/2, epsilon);
-            x3[tid] = XL(x3[tid] , L[2]/2, epsilon);
+            double epsilon = 0.0;
+            double eps = 0.0;
+            if (tid == 0 ){
+              x2[tid] = XL(x2[tid] , L[1]/2, eps , tid);
+              x3[tid] = XL(x3[tid] , L[2]/2, eps , tid);
+              }
+            
 
         //check to see if the particle is in y=-L[1]/2 or y=L[1]/2 or z=-L[2]/2 or z=L[2]/2 planes (cube sides)
        
@@ -221,9 +225,14 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
         //we should make sure at the same time the particles are exactly on the walls when they velocities become zero
 
             //by examining I concluded that epsilon needs to be equal to 2 for the particles not to get out of the box.      
-            //double epsilon = 2.0;
+        
             //x2[tid] = XL(x2[tid] , L[1]/2, epsilon);
             //x3[tid] = XL(x3[tid] , L[2]/2, epsilon);
+
+            x2[tid] = XL3(x2[tid] , L[1]/2, eps , tid);
+            x3[tid] = XL3(x3[tid] , L[2]/2, eps, tid);
+            if (tid != 0 ) printf(">>>x2[%i]=%f\n", tid , x2[tid]);
+
 
 
             
