@@ -50,7 +50,8 @@ curandGenerator_t gen, int grid_size)
     std::string trj_name = file_name + "_traj.xyz";
     std::ofstream log (log_name);
     std::ofstream trj (trj_name);
-    printf( "***WELCOME TO MPCD_MD_LeesEdwards CUDA CODE!***\nBy: Reyhaneh Afghahi Farimani, rhn_a_farimani@yahoo.com.\n ***The Active Polymer MPCD_MD simulation is done***\nBy: Mahtab Taghavinejad, mahtabnejadt@gmail.com.\nThis code comes with a python code to analyse the results.");
+    printf( "***WELCOME TO MPCD_MD_LeesEdwards CUDA CODE!***\nBy: Reyhaneh Afghahi Farimani, rhn_a_farimani@yahoo.com.\nThis code comes with a python code to analyse the results.");
+    printf("\n ***The Active Polymer MPCD_MD simulation is done***\nBy: Mahtab Taghavinejad, mahtabnejadt@gmail.com.");
     printf("\ninput system:\nensemble:NVT, thermostat= cell_level_Maxwell_Boltzaman_thermostat, Lx=%i,Ly=%i,Lz=%i,shear_rate=%f,density=%i\n", int(L[0]), int(L[1]),int(L[2]), shear_rate, density);
     printf( "SHEAR_FLOW is produced using Lees_Edwards Periodic Boundry Condition: shear direction:x , gradiant direction:z , vorticity direction: y\n");
     if (topology==1)
@@ -60,7 +61,7 @@ curandGenerator_t gen, int grid_size)
     printf("simulation time = %i, measurments accur every %i step.\n", simuationtime, swapsize);
     
 
-    log<<"***WELCOME TO MPCD_MD_LeesEdwards CUDA CODE!***\nBy: Reyhaneh Afghahi Farimani, rhn_a_farimani@yahoo.com. \nThis code comes with a python code to analyse the results.";
+    log<<"***WELCOME TO MPCD_MD_LeesEdwards CUDA CODE!***\nBy: Reyhaneh Afghahi Farimani, rhn_a_farimani@yahoo.com.***The Active Polymer MPCD_MD simulation is done***\nBy: Mahtab Taghavinejad, mahtabnejadt@gmail.com. \nThis code comes with a python code to analyse the results.";
     log<< "\ninput system:\nensemble:NVT, thermostat= cell_level_Maxwell_Boltzaman_thermostat, Lx="<<int(L[0])<<",Ly="<<int(L[1])<<",Lz="<<int(L[2])<<",shear_rate="<<shear_rate<<",density="<<density<<std::endl;
     if (topology==1)
         log<<"A poly["<<n_md<<"]catenane with "<<m_md<<" monomer in each ring is embeded in the MPCD fluid.\n";
