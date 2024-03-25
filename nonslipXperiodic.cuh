@@ -194,10 +194,19 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
 
             double epsilon = 0.0;
             double eps = 0.0;
-            //if (tid == 0 ){
-              x2[tid] = XL(x2[tid] , L[1]/2, eps , tid);
-              x3[tid] = XL(x3[tid] , L[2]/2, eps , tid);
-            //  }
+         
+              x2[tid] = XL3(x2[tid] , L[1]/2, eps , tid);
+              x3[tid] = XL3(x3[tid] , L[2]/2, eps , tid);
+      
+
+
+
+             if (tid ==0 ){
+                if(x2[0]>30 || x2[0]<-30 ){
+                  x2[0] = XL(x2[0] , L[1]/2, eps , tid);
+                  x3[0] = XL(x3[0] , L[2]/2, eps , tid);
+                }
+              
             
 
         //check to see if the particle is in y=-L[1]/2 or y=L[1]/2 or z=-L[2]/2 or z=L[2]/2 planes (cube sides)
@@ -229,11 +238,9 @@ __global__ void nonslipXperiodicBC3(double *x1 ,double *x2 , double *x3, double 
 
             //by examining I concluded that epsilon needs to be equal to 2 for the particles not to get out of the box.      
         
-            //x2[tid] = XL(x2[tid] , L[1]/2, epsilon);
-            //x3[tid] = XL(x3[tid] , L[2]/2, epsilon);
 
-            //x2[tid] = XL3(x2[tid] , L[1]/2, eps , tid);
-            //x3[tid] = XL3(x3[tid] , L[2]/2, eps, tid);
+            x2[tid] = XL3(x2[tid] , L[1]/2, eps , tid);
+            x3[tid] = XL3(x3[tid] , L[2]/2, eps, tid);
             //if (tid != 0 ) printf(">>>x2[%i]=%f\n", tid , x2[tid]);
 
 
